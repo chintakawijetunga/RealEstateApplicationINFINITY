@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Houses xmlns="http://www.InfinityRealEstates.com/house">
+<House lotNumber="2000">
+<firstName>Rasanjana</firstName>
+<lastName>De Alwis</lastName>
+<price>75</price>
+<squareFeet>4444</squareFeet>
+<bedRooms>22</bedRooms>
+</House>
+<House lotNumber="3000">
+<firstName>Rasanjana11</firstName>
+<lastName>De Alwis11</lastName>
+<price>751</price>
+<squareFeet>44441</squareFeet>
+<bedRooms>221</bedRooms>
+</House>
+<House lotNumber="5000">
+<firstName>Chintaka5</firstName>
+<lastName>Wijetunga5</lastName>
+<price>50</price>
+<squareFeet>5555</squareFeet>
+<bedRooms>55</bedRooms>
+</House>
+</Houses>
