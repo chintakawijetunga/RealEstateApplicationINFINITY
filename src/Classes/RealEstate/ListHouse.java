@@ -1,4 +1,5 @@
 package Classes.RealEstate;
 
-public class ListHouse implements Listable {
+public class ListHouse {
+
 }
