@@ -6,6 +6,9 @@ public class SortedList extends List {
         super(maxItems);
     }
     
+    public SortedList() {
+        super(100);
+    }
     
     @Override
     public boolean isThereHouse(Listable item) {
@@ -38,7 +41,25 @@ public class SortedList extends List {
     @Override
     public Listable retrieveHouse(Listable item) {
         
-        return null;
+        int compare;
+        int firstHouse = 0;
+        int lastHouse = numOfItems - 1;
+        int midPoint = (firstHouse + lastHouse) / 2;
+        boolean foundHouse = false;
+        
+        while (!foundHouse) {
+            midPoint = (firstHouse + lastHouse) / 2;
+            compare = item.compareTo(houseList[midPoint]);
+            if (compare == 0) {
+                foundHouse = true;
+            } else if (compare < 0) {
+                lastHouse = midPoint - 1;
+            } else {
+                firstHouse = midPoint + 1;
+            }
+        }
+        
+        return houseList[midPoint].copy();
     }
 
     @Override
