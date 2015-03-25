@@ -64,13 +64,39 @@ public class SortedList extends List {
 
     @Override
     public void insertHouse(Listable item) {
+        int currentLocation = 0;
+        boolean searchMore = (currentLocation < numOfItems);
         
+        while (searchMore) {
+            if (item.compareTo(houseList[currentLocation]) < 0) {
+                searchMore = false;
+            } else {
+                currentLocation++;
+                searchMore = (currentLocation < numOfItems);
+            }
+        }
+        
+        for (int index = numOfItems; index > currentLocation; index--) {
+            houseList[index] = houseList[index - 1];
+        }
+        
+        houseList[currentLocation] = item.copy();
+        numOfItems++;
         
     }
 
     @Override
     public void deleteHouse(Listable item) {
         
+        int currentLocation = 0;
         
+        while (item.compareTo(houseList[currentLocation]) != 0) {
+            currentLocation++;
+        }
+        
+        for (int index = currentLocation + 1; index < numOfItems; index++) {
+            houseList[index - 1] = houseList[index];
+        }
+        numOfItems--;
     }
 }
