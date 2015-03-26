@@ -8,10 +8,9 @@ public class ListHouse implements Listable {
     private int price;
     private int squareFeet;
     private int bedRooms;
-    
-    
+
     public ListHouse(String lastName, String firstName, int lotNumber, int price, int squareFeet, int bedRooms) {
-       
+        
         this.lastName = lastName;
         this.firstName = firstName;
         this.lotNumber = lotNumber;
@@ -30,10 +29,31 @@ public class ListHouse implements Listable {
     @Override
     public int compareTo(Listable otherListHouse) {
         
-        ListHouse otherHouse = (ListHouse) otherListHouse;
-        int diff=this.lotNumber - otherHouse.lotNumber;
-        return diff;
+        ListHouse other = (ListHouse) otherListHouse;
+        return (this.lotNumber - other.lotNumber);
     }
 
-    
+    public String lastName() {
+        return lastName;
+    }
+
+    public String firstName() {
+        return firstName;
+    }
+
+    public int lotNumber() {
+        return lotNumber;
+    }
+
+    public int price() {
+        return price;
+    }
+
+    public int squareFeet() {
+        return squareFeet;
+    }
+
+    public int bedRooms() {
+        return bedRooms;
+    }
 }

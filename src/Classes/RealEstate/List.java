@@ -1,6 +1,7 @@
 package Classes.RealEstate;
 
 public abstract class List {
+
     protected Listable[] houseList;
     public int numOfItems;
     protected int currentPosition;
@@ -22,7 +23,11 @@ public abstract class List {
     public abstract void insertHouse(Listable item);
 
     public abstract void deleteHouse(Listable item);
-    
+
+    public void resetHouseList() {
+        currentPosition = 0;
+    }
+
     public Listable getNextItem(boolean isNextButton) {
         
         Listable next = houseList[currentPosition];
@@ -55,9 +60,5 @@ public abstract class List {
             previous = houseList[currentPosition];
         }
         return previous.copy();
-    }
-    
-    public void resetHouseList() {
-        currentPosition = 0;
     }
 }

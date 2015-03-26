@@ -5,11 +5,11 @@ public class SortedList extends List {
     public SortedList(int maxItems) {
         super(maxItems);
     }
-    
+
     public SortedList() {
-        super(50000);
+        super(100);
     }
-    
+
     @Override
     public boolean isThereHouse(Listable item) {
         
@@ -37,7 +37,7 @@ public class SortedList extends List {
         
         return foundHouse;
     }
-    
+
     @Override
     public Listable retrieveHouse(Listable item) {
         
@@ -64,6 +64,7 @@ public class SortedList extends List {
 
     @Override
     public void insertHouse(Listable item) {
+        
         int currentLocation = 0;
         boolean searchMore = (currentLocation < numOfItems);
         
@@ -82,7 +83,6 @@ public class SortedList extends List {
         
         houseList[currentLocation] = item.copy();
         numOfItems++;
-        
     }
 
     @Override
