@@ -19,6 +19,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private static frmRealEstate instance;
     private final String path= "file.xml";    
     private static SortedList list = new SortedList();
+    private ListHouse house;
        
     public frmRealEstate() {
         initComponents(); 
@@ -254,6 +255,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnPopulateMouseExited(evt);
+            }
+        });
+        jBtnPopulate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPopulateActionPerformed(evt);
             }
         });
 
@@ -521,6 +527,17 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnCloseActionPerformed
 
+    private void jBtnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPopulateActionPerformed
+        if (list.listLengthIs() != 0) {
+            house = (ListHouse) list.getNextItem(false);
+            showHouse(house);
+
+            PopulateTheTable();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No houses to be shown.");
+        }
+    }//GEN-LAST:event_jBtnPopulateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdd;
@@ -582,6 +599,43 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       } catch (Exception e) {
          JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
       }    
+   }
+   
+   private void PopulateTheTable() 
+   {
+      ListHouse house;
+      int count = 0;
+      list.resetHouseList();
+      Object[] columnNames = {"Lot Number", "First Name", "Last Name", "Price", "Square Feet", "No of Bedrooms"};
+      DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
+      
+      while (count <= list.listLengthIs() - 1) 
+      {
+         Object[] o = new Object[6];
+         
+         house = (ListHouse) list.getNextItem(false);
+
+         o[0] = Integer.toString(house.lotNumber());
+         o[1] = (house.firstName());
+         o[2] = (house.lastName());
+         o[3] = (house.price());
+         o[4] = (house.squareFeet());
+         o[5] = (house.bedRooms());
+         model.addRow(o);
+         count++;
+      }
+      list.resetHouseList();
+      jTableEstateInfo.setModel(model);
+   }
+   
+   private void showHouse(ListHouse house) 
+   {
+      jTxtLotNo.setText(Integer.toString(house.lotNumber()));
+      jTxtFirstName.setText(house.firstName());
+      jTxtLastName.setText(house.lastName());
+      jTxtPrice.setText(Integer.toString(house.price()));
+      jTxtSqFeet.setText(Integer.toString(house.squareFeet()));
+      jTxtNoOfBedrooms.setText(Integer.toString(house.bedRooms()));
    }
 
     
