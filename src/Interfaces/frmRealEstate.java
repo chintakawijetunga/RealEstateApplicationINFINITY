@@ -1,14 +1,28 @@
 package Interfaces;
 
 import Classes.General.Button;
+import Classes.RealEstate.HouseFile;
+import Classes.RealEstate.ListHouse;
+import Classes.RealEstate.SortedList;
+import java.io.File;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private static frmRealEstate instance;
+    private final String path= "file.xml";    
+    private static SortedList list = new SortedList();
        
     public frmRealEstate() {
-        initComponents();      
+        initComponents(); 
+        this.loadTheXMLFile();
     }
     
     public static frmRealEstate GetInstance() 
@@ -119,6 +133,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 jBtnCloseMouseExited(evt);
             }
         });
+        jBtnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCloseActionPerformed(evt);
+            }
+        });
 
         jBtnAdd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,6 +186,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 jBtnClearMouseExited(evt);
             }
         });
+        jBtnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnClearActionPerformed(evt);
+            }
+        });
 
         jBtnSearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnSearch.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,6 +201,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnSearchMouseExited(evt);
+            }
+        });
+        jBtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSearchActionPerformed(evt);
             }
         });
 
@@ -472,6 +501,26 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         ob.paint(getGraphics(), jBtnAdd, "Entry");
     }//GEN-LAST:event_jBtnAddMouseEntered
 
+    private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
+        jTxtFirstName.setText("");
+        jTxtLastName.setText("");
+        jTxtLotNo.setText("");
+        jTxtNoOfBedrooms.setText("");
+        jTxtPrice.setText("");
+        jTxtSqFeet.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_jBtnClearActionPerformed
+
+    private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
+        SearchLotNumber obj = new SearchLotNumber();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jBtnSearchActionPerformed
+
+    private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jBtnCloseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdd;
@@ -501,7 +550,39 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTxtSqFeet;
     // End of variables declaration//GEN-END:variables
 
-   
+   private void loadTheXMLFile() 
+   {
+      ListHouse house;
+
+      try {
+         File fXmlFile = new File(path);
+         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+         Document doc = dBuilder.parse(fXmlFile);
+
+         doc.getDocumentElement().normalize();
+
+         
+         NodeList nList = doc.getElementsByTagName("House");
+         int listSize=nList.getLength();
+         
+         for (int temp = 0; temp < listSize; temp++) {
+
+            Node nNode = nList.item(temp);
+
+               //JOptionPane.showMessageDialog(rootPane,"\nCurrent Element :" + nNode.getNodeName());
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+               house = HouseFile.getNextHouse(nNode);
+               list.insertHouse(house);
+               //			JOptionPane.showMessageDialog(rootPane,xmlValue);
+            }
+         }
+
+         
+      } catch (Exception e) {
+         JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
+      }    
+   }
 
     
 }
