@@ -5,12 +5,21 @@ import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 public class frmChangePassword extends javax.swing.JInternalFrame {
         
+    private static frmChangePassword instance;
    
     public frmChangePassword() {
         
         initComponents();
     }
     
+    public static frmChangePassword GetInstance() 
+    {
+        if (instance == null) 
+        {
+            instance = new frmChangePassword();
+        }
+        return instance;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

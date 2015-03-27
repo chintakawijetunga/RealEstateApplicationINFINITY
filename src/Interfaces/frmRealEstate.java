@@ -5,9 +5,19 @@ import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 public class frmRealEstate extends javax.swing.JInternalFrame {
 
+    private static frmRealEstate instance;
        
     public frmRealEstate() {
         initComponents();      
+    }
+    
+    public static frmRealEstate GetInstance() 
+    {
+        if (instance == null) 
+        {
+            instance = new frmRealEstate();
+        }
+        return instance;
     }
 
     /**

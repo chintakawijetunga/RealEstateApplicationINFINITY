@@ -5,14 +5,21 @@ import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 public class frmAddNewUser extends javax.swing.JInternalFrame {    
     
-        
+    private static frmAddNewUser instance;   
     
     public frmAddNewUser() {
         
         initComponents();
     }
     
-        
+    public static frmAddNewUser GetInstance() 
+    {
+        if (instance == null) 
+        {
+            instance = new frmAddNewUser();
+        }
+        return instance;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

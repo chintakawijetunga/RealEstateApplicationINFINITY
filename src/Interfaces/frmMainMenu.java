@@ -55,6 +55,11 @@ public class frmMainMenu extends javax.swing.JFrame {
 
         jMIExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMIExit.setText("Exit");
+        jMIExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIExitActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMIExit);
 
         jMainMenuBar.add(jMenuFile);
@@ -64,6 +69,11 @@ public class frmMainMenu extends javax.swing.JFrame {
 
         jMIRealEstate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMIRealEstate.setText("Real Estate");
+        jMIRealEstate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRealEstateActionPerformed(evt);
+            }
+        });
         jMenuRealEstate.add(jMIRealEstate);
 
         jMainMenuBar.add(jMenuRealEstate);
@@ -73,10 +83,20 @@ public class frmMainMenu extends javax.swing.JFrame {
 
         jMIAddUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMIAddUser.setText("Add User");
+        jMIAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIAddUserActionPerformed(evt);
+            }
+        });
         jMenuSettings.add(jMIAddUser);
 
         jMIChngPwd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMIChngPwd.setText("Change Password");
+        jMIChngPwd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIChngPwdActionPerformed(evt);
+            }
+        });
         jMenuSettings.add(jMIChngPwd);
 
         jMIChngUsrLvl.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
@@ -112,6 +132,53 @@ public class frmMainMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMIExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIExitActionPerformed
+       
+        this.dispose();
+    }//GEN-LAST:event_jMIExitActionPerformed
+
+    private void jMIRealEstateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRealEstateActionPerformed
+
+        frmRealEstate obj = frmRealEstate.GetInstance();
+
+        if (!obj.isVisible()) {
+            jMainDesktopPane.add(obj);
+            obj.setVisible(true);
+        } else {
+            obj.toFront();
+        }
+
+        try {
+            obj.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(frmMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMIRealEstateActionPerformed
+
+    private void jMIAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAddUserActionPerformed
+
+        frmAddNewUser obj = frmAddNewUser.GetInstance();
+
+        if (!obj.isVisible()) {
+            jMainDesktopPane.add(obj);
+            obj.setVisible(true);
+        } else {
+            obj.toFront();
+        }
+    }//GEN-LAST:event_jMIAddUserActionPerformed
+
+    private void jMIChngPwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIChngPwdActionPerformed
+
+        frmChangePassword obj = frmChangePassword.GetInstance();
+
+        if (!obj.isVisible()) {
+            jMainDesktopPane.add(obj);
+            obj.setVisible(true);
+        } else {
+            obj.toFront();
+        }
+    }//GEN-LAST:event_jMIChngPwdActionPerformed
 
     /**
      * @param args the command line arguments
