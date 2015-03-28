@@ -1,15 +1,35 @@
 package Interfaces;
 
 import Classes.General.Button;
+import Classes.RealEstate.HouseFile;
+import Classes.RealEstate.ListHouse;
+import Classes.RealEstate.SortedList;
+import java.io.File;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private static frmRealEstate instance;
+    private final String path= "file.xml";    
+    private static SortedList list = new SortedList();
+    private ListHouse house;
        
     public frmRealEstate() {
-        initComponents();      
+        initComponents(); 
+        this.loadTheXMLFile();
     }
     
     public static frmRealEstate GetInstance() 
@@ -64,6 +84,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -241,6 +262,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnPopulateMouseExited(evt);
+            }
+        });
+        jBtnPopulate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPopulateActionPerformed(evt);
             }
         });
 
@@ -505,8 +531,24 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnSearchActionPerformed
 
     private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
+        SaveToXML();
         this.dispose();
     }//GEN-LAST:event_jBtnCloseActionPerformed
+
+    private void jBtnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPopulateActionPerformed
+        if (list.listLengthIs() != 0) {
+            house = (ListHouse) list.getNextItem(false);
+            showHouse(house);
+
+            PopulateTheTable();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No houses to be shown.");
+        }
+    }//GEN-LAST:event_jBtnPopulateActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        SaveToXML();
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -537,7 +579,156 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTxtSqFeet;
     // End of variables declaration//GEN-END:variables
 
+   private void loadTheXMLFile() 
+   {
+      ListHouse house;
+
+      try {
+         File fXmlFile = new File(path);
+         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+         Document doc = dBuilder.parse(fXmlFile);
+
+         doc.getDocumentElement().normalize();
+
+         
+         NodeList nList = doc.getElementsByTagName("House");
+         int listSize=nList.getLength();
+         
+         for (int temp = 0; temp < listSize; temp++) {
+
+            Node nNode = nList.item(temp);
+
+               //JOptionPane.showMessageDialog(rootPane,"\nCurrent Element :" + nNode.getNodeName());
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+               house = HouseFile.getNextHouse(nNode);
+               list.insertHouse(house);
+               //			JOptionPane.showMessageDialog(rootPane,xmlValue);
+            }
+         }
+
+         
+      } catch (Exception e) {
+         JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
+      }    
+   }
    
+   private void PopulateTheTable() 
+   {
+      ListHouse house;
+      int count = 0;
+      list.resetHouseList();
+      Object[] columnNames = {"Lot Number", "First Name", "Last Name", "Price", "Square Feet", "No of Bedrooms"};
+      DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
+      
+      while (count <= list.listLengthIs() - 1) 
+      {
+         Object[] o = new Object[6];
+         
+         house = (ListHouse) list.getNextItem(false);
+
+         o[0] = Integer.toString(house.lotNumber());
+         o[1] = (house.firstName());
+         o[2] = (house.lastName());
+         o[3] = (house.price());
+         o[4] = (house.squareFeet());
+         o[5] = (house.bedRooms());
+         model.addRow(o);
+         count++;
+      }
+      list.resetHouseList();
+      jTableEstateInfo.setModel(model);
+   }
+   
+   private void showHouse(ListHouse house) 
+   {
+      jTxtLotNo.setText(Integer.toString(house.lotNumber()));
+      jTxtFirstName.setText(house.firstName());
+      jTxtLastName.setText(house.lastName());
+      jTxtPrice.setText(Integer.toString(house.price()));
+      jTxtSqFeet.setText(Integer.toString(house.squareFeet()));
+      jTxtNoOfBedrooms.setText(Integer.toString(house.bedRooms()));
+   }
+   
+   private void SaveToXML() {
+        int count=0;
+        
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.newDocument();
+            
+            Element rootElement = doc.createElementNS("http://www.InfinityRealEstates.com/house", "Houses");
+            
+            doc.appendChild(rootElement);
+ 
+            while(count<list.listLengthIs()){
+            ListHouse house = (ListHouse) list.getNextItem(false);
+            rootElement.appendChild(getHouse(doc, house.lotNumber(), house.firstName(), house.lastName(), house.price(), house.squareFeet(), house.bedRooms()));
+            count++;
+            }
+ 
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+ 
+            StreamResult file = new StreamResult(new File(path));
+ 
+            transformer.transform(source, file);
+ 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+   
+   private ListHouse getHouse() 
+   {
+      String lastName;
+      String firstName;
+      int lotNumber;
+      int price;
+      int squareFeet;
+      int bedRooms;
+      
+      lotNumber = Integer.parseInt(jTxtLotNo.getText());
+      firstName = jTxtFirstName.getText();
+      lastName = jTxtLastName.getText();
+      price = Integer.parseInt(jTxtPrice.getText());
+      squareFeet = Integer.parseInt(jTxtSqFeet.getText());
+      bedRooms = Integer.parseInt(jTxtNoOfBedrooms.getText());
+      
+      ListHouse house = new ListHouse(lastName, firstName, lotNumber, price, squareFeet, bedRooms);
+      
+      return house;
+   }
+   
+   private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price,
+            int squareFeet, int bedRooms) {
+    
+    Element house = doc.createElement("House");
+
+        
+        house.setAttribute("lotNumber", Integer.toString(lotNumber));
+        house.appendChild(getHouseElements(doc, "firstName", firstName));
+        house.appendChild(getHouseElements(doc, "lastName", lastName));
+        house.appendChild(getHouseElements(doc, "price", Integer.toString(price)));
+        house.appendChild(getHouseElements(doc, "squareFeet", Integer.toString(squareFeet)));
+        house.appendChild(getHouseElements(doc, "bedRooms", Integer.toString(bedRooms)));
+        
+        return house;
+    
+    
+    }
+   
+   private static Node getHouseElements(Document doc, String name, String value) {
+        Element node = doc.createElement(name);
+        node.appendChild(doc.createTextNode(value));
+        return node;
+    }
 
     
 }
