@@ -163,6 +163,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 jBtnAddMouseExited(evt);
             }
         });
+        jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddActionPerformed(evt);
+            }
+        });
 
         jBtnSave.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnSave.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,6 +180,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 jBtnSaveMouseExited(evt);
             }
         });
+        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaveActionPerformed(evt);
+            }
+        });
 
         jBtnReset.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -185,6 +195,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnResetMouseExited(evt);
+            }
+        });
+        jBtnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnResetActionPerformed(evt);
             }
         });
 
@@ -231,6 +246,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnDeleteMouseExited(evt);
+            }
+        });
+        jBtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnDeleteActionPerformed(evt);
             }
         });
 
@@ -558,6 +578,48 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
         jTableTojTextFields();
     }//GEN-LAST:event_jTableEstateInfoMouseClicked
+
+    private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnAddActionPerformed
+
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+        
+        try {
+            
+            house = getHouse();
+            
+            if (list.isThereHouse(house)) {
+                
+                JOptionPane.showConfirmDialog (rootPane, "Lot Number specified already exists.");
+                
+            } else {
+                list.insertHouse(house);
+                JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText()+" is successfully saved.");
+                PopulateTheTable();
+            }
+            
+        } catch (NumberFormatException badHouseData) {
+            
+            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+        }
+    }//GEN-LAST:event_jBtnSaveActionPerformed
+
+    private void jBtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnResetActionPerformed
+        list.resetHouseList();
+        house = (ListHouse) list.getNextItem(false);
+        showHouse(house);
+    }//GEN-LAST:event_jBtnResetActionPerformed
+
+    private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
+        house = getHouse();
+        list.deleteHouse(house);
+        JOptionPane.showMessageDialog(rootPane, "Lot Number "+house.lotNumber() +" is deleted.");
+        list.resetHouseList();
+        house = (ListHouse) list.getNextItem(false);
+        showHouse(house);
+        PopulateTheTable();
+    }//GEN-LAST:event_jBtnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
