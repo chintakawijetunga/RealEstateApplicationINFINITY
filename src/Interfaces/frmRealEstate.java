@@ -598,21 +598,60 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnAddActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
-        
+        String errorMessage="Please check the following:\n\t";
+        Boolean showErrorMessage=false;
         try {
+            if(jTxtLotNo.getText().equals(""))
+            {
+                errorMessage+=">A lot number is missing.\n\t";
+                showErrorMessage=true;
+            }
+            if(jTxtFirstName.getText().equals("") && jTxtLastName.getText().equals(""))
+            {
+            errorMessage+=">Either a First name or last name should be present.\n\t";
+            showErrorMessage=true;
+            }
+            if(jTxtNoOfBedrooms.getText().equals(""))
+            {
+            errorMessage+=">Number of bedrooms should be specified.\n\t";
+            showErrorMessage=true;
+            }
+            if(jTxtPrice.getText().equals(""))
+            {
+            errorMessage+=">Price of the house should be specified.\n\t";
+            showErrorMessage=true;
+            }
+            if(jTxtSqFeet.getText().equals(""))
+            {
+            errorMessage+=">Size of the house in sq. feet should be specified.\n\t";
+            showErrorMessage=true;
+            }
             
+            if(showErrorMessage)
+            {
+            JOptionPane.showMessageDialog(rootPane, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+           
+            }
+            else
+            {
             house = getHouse();
             
             if (list.isThereHouse(house)) {
                 
-                JOptionPane.showConfirmDialog (rootPane, "Lot Number specified already exists.");
-                
+                if(JOptionPane.showConfirmDialog (rootPane, "Lot Number specified already exists. \nDo you want to update Lot Number " + jTxtLotNo.getText()+"?","Warning",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {
+                list.deleteHouse(house);
+                list.resetHouseList();
+                list.insertHouse(house);
+                JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText()+" is successfully updated.");
+                PopulateTheTable();
+                }
             } else {
                 list.insertHouse(house);
                 JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText()+" is successfully saved.");
                 PopulateTheTable();
             }
-            
+            }
         } catch (NumberFormatException badHouseData) {
             
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
@@ -626,13 +665,22 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnResetActionPerformed
 
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
-        house = getHouse();
-        list.deleteHouse(house);
-        JOptionPane.showMessageDialog(rootPane, "Lot Number "+house.lotNumber() +" is deleted.");
-        list.resetHouseList();
-        house = (ListHouse) list.getNextItem(false);
-        showHouse(house);
-        PopulateTheTable();
+        try {
+            house = getHouse();
+            if (list.isThereHouse(house)) {
+                list.deleteHouse(house);
+                JOptionPane.showMessageDialog(rootPane, "Lot Number "+house.lotNumber() +" is deleted.");
+                list.resetHouseList();
+                house = (ListHouse) list.getNextItem(false);
+                showHouse(house);
+                PopulateTheTable();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
+            }
+        } catch (NumberFormatException badHouseData) {
+            
+            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+        }
     }//GEN-LAST:event_jBtnDeleteActionPerformed
 
 
