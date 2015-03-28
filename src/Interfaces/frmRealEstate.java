@@ -551,8 +551,22 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnClearActionPerformed
 
     private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
-        SearchLotNumber obj = new SearchLotNumber();
-        obj.setVisible(true);
+        int lotNumber;
+
+        try {
+            lotNumber = Integer.parseInt(JOptionPane.showInputDialog(this,"Please enter the Lot Number to Search: ","Search Lot Number",JOptionPane.QUESTION_MESSAGE));
+
+            house = new ListHouse("", "", lotNumber, 0, 0, 0);
+
+            if (list.isThereHouse(house)) {
+                house = (ListHouse) list.retrieveHouse(house);
+                showHouse(house);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable.");
+            }
+        } catch (NumberFormatException badHouseData) {
+            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+        }
     }//GEN-LAST:event_jBtnSearchActionPerformed
 
     private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
