@@ -128,6 +128,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         ));
         jTableEstateInfo.setGridColor(new java.awt.Color(0, 204, 204));
         jTableEstateInfo.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        jTableEstateInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEstateInfoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableEstateInfo);
 
         jBtnClose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -550,6 +555,10 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         SaveToXML();
     }//GEN-LAST:event_formInternalFrameClosing
 
+    private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
+        jTableTojTextFields();
+    }//GEN-LAST:event_jTableEstateInfoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdd;
@@ -612,7 +621,17 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
          JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
       }    
    }
-   
+
+   private void showHouse(ListHouse house) 
+   {
+      jTxtLotNo.setText(Integer.toString(house.lotNumber()));
+      jTxtFirstName.setText(house.firstName());
+      jTxtLastName.setText(house.lastName());
+      jTxtPrice.setText(Integer.toString(house.price()));
+      jTxtSqFeet.setText(Integer.toString(house.squareFeet()));
+      jTxtNoOfBedrooms.setText(Integer.toString(house.bedRooms()));
+   }
+
    private void PopulateTheTable() 
    {
       ListHouse house;
@@ -639,18 +658,29 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       list.resetHouseList();
       jTableEstateInfo.setModel(model);
    }
-   
-   private void showHouse(ListHouse house) 
+
+   private ListHouse getHouse() 
    {
-      jTxtLotNo.setText(Integer.toString(house.lotNumber()));
-      jTxtFirstName.setText(house.firstName());
-      jTxtLastName.setText(house.lastName());
-      jTxtPrice.setText(Integer.toString(house.price()));
-      jTxtSqFeet.setText(Integer.toString(house.squareFeet()));
-      jTxtNoOfBedrooms.setText(Integer.toString(house.bedRooms()));
+      String lastName;
+      String firstName;
+      int lotNumber;
+      int price;
+      int squareFeet;
+      int bedRooms;
+      
+      lotNumber = Integer.parseInt(jTxtLotNo.getText());
+      firstName = jTxtFirstName.getText();
+      lastName = jTxtLastName.getText();
+      price = Integer.parseInt(jTxtPrice.getText());
+      squareFeet = Integer.parseInt(jTxtSqFeet.getText());
+      bedRooms = Integer.parseInt(jTxtNoOfBedrooms.getText());
+      
+      ListHouse house = new ListHouse(lastName, firstName, lotNumber, price, squareFeet, bedRooms);
+      
+      return house;
    }
-   
-   private void SaveToXML() {
+
+    private void SaveToXML() {
         int count=0;
         
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -684,29 +714,8 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
-   
-   private ListHouse getHouse() 
-   {
-      String lastName;
-      String firstName;
-      int lotNumber;
-      int price;
-      int squareFeet;
-      int bedRooms;
-      
-      lotNumber = Integer.parseInt(jTxtLotNo.getText());
-      firstName = jTxtFirstName.getText();
-      lastName = jTxtLastName.getText();
-      price = Integer.parseInt(jTxtPrice.getText());
-      squareFeet = Integer.parseInt(jTxtSqFeet.getText());
-      bedRooms = Integer.parseInt(jTxtNoOfBedrooms.getText());
-      
-      ListHouse house = new ListHouse(lastName, firstName, lotNumber, price, squareFeet, bedRooms);
-      
-      return house;
-   }
-   
-   private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price,
+    
+    private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price,
             int squareFeet, int bedRooms) {
     
     Element house = doc.createElement("House");
@@ -723,11 +732,45 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     
     
     }
-   
-   private static Node getHouseElements(Document doc, String name, String value) {
+    
+    private static Node getHouseElements(Document doc, String name, String value) {
         Element node = doc.createElement(name);
         node.appendChild(doc.createTextNode(value));
         return node;
+    }
+    
+    
+    private void jTableTojTextFields() {
+        try{
+        int selectedRowIndex = jTableEstateInfo.getSelectedRow();
+Object lastName;
+      Object firstName;
+      Object lotNumber;
+      Object price;
+      Object squareFeet;
+      Object bedRooms;
+      
+      lotNumber = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 0);
+      firstName = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 1);
+      lastName = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 2);
+      price = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
+      squareFeet = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
+      bedRooms = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
+        
+        
+        
+        jTxtLotNo.setText(Integer.toString((int) lotNumber));
+        jTxtFirstName.setText((String) firstName);
+        jTxtLastName.setText((String) lastName);
+        jTxtPrice.setText(Integer.toString((int) price));
+        jTxtSqFeet.setText(Integer.toString((int) squareFeet));
+        jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        
     }
 
     
