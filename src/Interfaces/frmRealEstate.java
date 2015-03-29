@@ -1,37 +1,22 @@
 package Interfaces;
 
 import Classes.General.Button;
-import Classes.RealEstate.HouseFile;
-import Classes.RealEstate.ListHouse;
-import Classes.RealEstate.SortedList;
+import Classes.RealEstate.*;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private static frmRealEstate instance;
-    private final String path= "file.xml";    
-    private static SortedList list = new SortedList();
-    private ListHouse house;
-       
-    public frmRealEstate() {
-        initComponents(); 
-        this.loadTheXMLFile();
-    }
-    
+   
     public static frmRealEstate GetInstance() 
     {
         if (instance == null) 
@@ -39,6 +24,21 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             instance = new frmRealEstate();
         }
         return instance;
+    }
+    
+    /**
+     * Creates new form frmRealEstate
+     */
+    
+    private final String path= "file.xml";
+    
+    private static SortedList list = new SortedList();
+    private ListHouse house;
+    
+    public frmRealEstate() {
+        initComponents();      
+        loadTheXMLFile();
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/Images/RealEstate.png")));
     }
 
     /**
@@ -265,6 +265,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 jBtnPrevMouseExited(evt);
             }
         });
+        jBtnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPrevActionPerformed(evt);
+            }
+        });
 
         jBtnNext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnNext.setForeground(new java.awt.Color(255, 255, 255));
@@ -275,6 +280,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnNextMouseExited(evt);
+            }
+        });
+        jBtnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnNextActionPerformed(evt);
             }
         });
 
@@ -425,6 +435,31 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         ob.paint(getGraphics(), jBtnClose, "Exit");
     }//GEN-LAST:event_jBtnCloseMouseExited
 
+    private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
+        SaveToXML();
+        this.dispose();
+    }//GEN-LAST:event_jBtnCloseActionPerformed
+
+    private void jBtnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnAdd, "Entry");
+    }//GEN-LAST:event_jBtnAddMouseEntered
+
+    private void jBtnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnAdd, "Exit");
+    }//GEN-LAST:event_jBtnAddMouseExited
+
+    private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
+        jTxtFirstName.setText("");
+        jTxtLastName.setText("");
+        jTxtLotNo.setText("");
+        jTxtNoOfBedrooms.setText("");
+        jTxtPrice.setText("");
+        jTxtSqFeet.setText("");
+
+    }//GEN-LAST:event_jBtnAddActionPerformed
+
     private void jBtnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSaveMouseEntered
         Button ob = new Button();
         ob.paint(getGraphics(), jBtnSave, "Entry");
@@ -435,169 +470,8 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         ob.paint(getGraphics(), jBtnSave, "Exit");
     }//GEN-LAST:event_jBtnSaveMouseExited
 
-    private void jBtnResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResetMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnReset, "Entry");
-    }//GEN-LAST:event_jBtnResetMouseEntered
-
-    private void jBtnResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResetMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnReset, "Exit");
-    }//GEN-LAST:event_jBtnResetMouseExited
-
-    private void jBtnClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnClearMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnClear, "Entry");
-    }//GEN-LAST:event_jBtnClearMouseEntered
-
-    private void jBtnClearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnClearMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnClear, "Exit");
-    }//GEN-LAST:event_jBtnClearMouseExited
-
-    private void jBtnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnSearch, "Entry");
-    }//GEN-LAST:event_jBtnSearchMouseEntered
-
-    private void jBtnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnSearch, "Exit");
-    }//GEN-LAST:event_jBtnSearchMouseExited
-
-    private void jBtnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDeleteMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnDelete, "Entry");
-    }//GEN-LAST:event_jBtnDeleteMouseEntered
-
-    private void jBtnDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDeleteMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnDelete, "Exit");
-    }//GEN-LAST:event_jBtnDeleteMouseExited
-
-    private void jBtnPrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPrevMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnPrev, "Entry");
-    }//GEN-LAST:event_jBtnPrevMouseEntered
-
-    private void jBtnPrevMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPrevMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnPrev, "Exit");
-    }//GEN-LAST:event_jBtnPrevMouseExited
-
-    private void jBtnNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnNextMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnNext, "Entry");
-    }//GEN-LAST:event_jBtnNextMouseEntered
-
-    private void jBtnNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnNextMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnNext, "Exit");
-    }//GEN-LAST:event_jBtnNextMouseExited
-
-    private void jBtnPopulateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPopulateMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnPopulate, "Entry");
-    }//GEN-LAST:event_jBtnPopulateMouseEntered
-
-    private void jBtnPopulateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPopulateMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnPopulate, "Exit");
-    }//GEN-LAST:event_jBtnPopulateMouseExited
-
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-      // Start, Button formatting
-      jBtnAdd.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnClear.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnClose.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnDelete.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnNext.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnPrev.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnReset.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnSave.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnSearch.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      jBtnPopulate.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
-      // End, Button formatting
-      
-      // Start, Table formatting
-       jTableEstateInfo.getColumnModel().getColumn(0).setPreferredWidth(70);
-       jTableEstateInfo.getColumnModel().getColumn(1).setPreferredWidth(100);
-       jTableEstateInfo.getColumnModel().getColumn(2).setPreferredWidth(100);
-       jTableEstateInfo.getColumnModel().getColumn(3).setPreferredWidth(55);
-       jTableEstateInfo.getColumnModel().getColumn(4).setPreferredWidth(55);
-       jTableEstateInfo.getColumnModel().getColumn(5).setPreferredWidth(60);      
-      // End, Table formatting       
-    }//GEN-LAST:event_formInternalFrameOpened
-
-    private void jBtnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseExited
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnAdd, "Exit");
-    }//GEN-LAST:event_jBtnAddMouseExited
-
-    private void jBtnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseEntered
-        Button ob = new Button();
-        ob.paint(getGraphics(), jBtnAdd, "Entry");
-    }//GEN-LAST:event_jBtnAddMouseEntered
-
-    private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
-        jTxtFirstName.setText("");
-        jTxtLastName.setText("");
-        jTxtLotNo.setText("");
-        jTxtNoOfBedrooms.setText("");
-        jTxtPrice.setText("");
-        jTxtSqFeet.setText("");
-        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
-        model.setRowCount(0);
-    }//GEN-LAST:event_jBtnClearActionPerformed
-
-    private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
-        int lotNumber;
-
-        try {
-            lotNumber = Integer.parseInt(JOptionPane.showInputDialog(this,"Please enter the Lot Number to Search: ","Search Lot Number",JOptionPane.QUESTION_MESSAGE));
-
-            house = new ListHouse("", "", lotNumber, 0, 0, 0);
-
-            if (list.isThereHouse(house)) {
-                house = (ListHouse) list.retrieveHouse(house);
-                showHouse(house);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable.");
-            }
-        } catch (NumberFormatException badHouseData) {
-            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
-        }
-    }//GEN-LAST:event_jBtnSearchActionPerformed
-
-    private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
-        SaveToXML();
-        this.dispose();
-    }//GEN-LAST:event_jBtnCloseActionPerformed
-
-    private void jBtnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPopulateActionPerformed
-        if (list.listLengthIs() != 0) {
-            house = (ListHouse) list.getNextItem(false);
-            showHouse(house);
-
-            PopulateTheTable();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No houses to be shown.");
-        }
-    }//GEN-LAST:event_jBtnPopulateActionPerformed
-
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        SaveToXML();
-    }//GEN-LAST:event_formInternalFrameClosing
-
-    private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
-        jTableTojTextFields();
-    }//GEN-LAST:event_jTableEstateInfoMouseClicked
-
-    private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnAddActionPerformed
-
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+   
         String errorMessage="Please check the following:\n\t";
         Boolean showErrorMessage=false;
         try {
@@ -652,17 +526,88 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 PopulateTheTable();
             }
             }
-        } catch (NumberFormatException badHouseData) {
+        } catch (NumberFormatException e) {
             
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
+
+    private void jBtnResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResetMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnReset, "Entry");
+    }//GEN-LAST:event_jBtnResetMouseEntered
+
+    private void jBtnResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResetMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnReset, "Exit");
+    }//GEN-LAST:event_jBtnResetMouseExited
 
     private void jBtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnResetActionPerformed
         list.resetHouseList();
         house = (ListHouse) list.getNextItem(false);
         showHouse(house);
     }//GEN-LAST:event_jBtnResetActionPerformed
+
+    private void jBtnClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnClearMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnClear, "Entry");
+    }//GEN-LAST:event_jBtnClearMouseEntered
+
+    private void jBtnClearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnClearMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnClear, "Exit");
+    }//GEN-LAST:event_jBtnClearMouseExited
+
+    private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
+        jTxtFirstName.setText("");
+        jTxtLastName.setText("");
+        jTxtLotNo.setText("");
+        jTxtNoOfBedrooms.setText("");
+        jTxtPrice.setText("");
+        jTxtSqFeet.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_jBtnClearActionPerformed
+
+    private void jBtnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnSearch, "Entry");
+    }//GEN-LAST:event_jBtnSearchMouseEntered
+
+    private void jBtnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnSearch, "Exit");
+    }//GEN-LAST:event_jBtnSearchMouseExited
+
+    private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
+
+        int lotNumber;
+
+        try {
+            lotNumber = Integer.parseInt(JOptionPane.showInputDialog(this,"Please enter the Lot Number to Search: ","Search Lot Number",JOptionPane.QUESTION_MESSAGE));
+
+            house = new ListHouse("", "", lotNumber, 0, 0, 0);
+
+            if (list.isThereHouse(house)) {
+                house = (ListHouse) list.retrieveHouse(house);
+                showHouse(house);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+        }
+    }//GEN-LAST:event_jBtnSearchActionPerformed
+
+    private void jBtnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDeleteMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnDelete, "Entry");
+    }//GEN-LAST:event_jBtnDeleteMouseEntered
+
+    private void jBtnDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDeleteMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnDelete, "Exit");
+    }//GEN-LAST:event_jBtnDeleteMouseExited
 
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
         try {
@@ -677,11 +622,95 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
             }
-        } catch (NumberFormatException badHouseData) {
+        } catch (NumberFormatException e) {
             
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
         }
     }//GEN-LAST:event_jBtnDeleteActionPerformed
+
+    private void jBtnPrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPrevMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnPrev, "Entry");
+    }//GEN-LAST:event_jBtnPrevMouseEntered
+
+    private void jBtnPrevMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPrevMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnPrev, "Exit");
+    }//GEN-LAST:event_jBtnPrevMouseExited
+
+    private void jBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPrevActionPerformed
+        ListHouse house = (ListHouse) list.getPreviousItem(true);
+        showHouse(house);
+    }//GEN-LAST:event_jBtnPrevActionPerformed
+
+    private void jBtnNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnNextMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnNext, "Entry");
+    }//GEN-LAST:event_jBtnNextMouseEntered
+
+    private void jBtnNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnNextMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnNext, "Exit");
+    }//GEN-LAST:event_jBtnNextMouseExited
+
+    private void jBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNextActionPerformed
+        ListHouse house = (ListHouse) list.getNextItem(true);
+        showHouse(house);
+    }//GEN-LAST:event_jBtnNextActionPerformed
+
+    private void jBtnPopulateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPopulateMouseEntered
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnPopulate, "Entry");
+    }//GEN-LAST:event_jBtnPopulateMouseEntered
+
+    private void jBtnPopulateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPopulateMouseExited
+        Button ob = new Button();
+        ob.paint(getGraphics(), jBtnPopulate, "Exit");
+    }//GEN-LAST:event_jBtnPopulateMouseExited
+
+    private void jBtnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPopulateActionPerformed
+        if (list.listLengthIs() != 0) {
+            house = (ListHouse) list.getNextItem(false);
+            showHouse(house);
+
+            PopulateTheTable();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No houses to be shown.");
+        }
+    }//GEN-LAST:event_jBtnPopulateActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+      // Start, Button formatting
+      jBtnAdd.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnClear.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnClose.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnDelete.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnNext.setUI (new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnPrev.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnReset.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnSave.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnSearch.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      jBtnPopulate.setUI(new BEButtonUI (). setNormalColor (BEButtonUI.NormalColor.lightBlue));
+      // End, Button formatting
+      
+      // Start, Table formatting
+       jTableEstateInfo.getColumnModel().getColumn(0).setPreferredWidth(70);
+       jTableEstateInfo.getColumnModel().getColumn(1).setPreferredWidth(100);
+       jTableEstateInfo.getColumnModel().getColumn(2).setPreferredWidth(100);
+       jTableEstateInfo.getColumnModel().getColumn(3).setPreferredWidth(55);
+       jTableEstateInfo.getColumnModel().getColumn(4).setPreferredWidth(55);
+       jTableEstateInfo.getColumnModel().getColumn(5).setPreferredWidth(60);      
+      // End, Table formatting       
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        SaveToXML();
+    }//GEN-LAST:event_formInternalFrameClosing
+
+    private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
+        // TODO add your handling code here:
+        jTableTojTextFields();
+    }//GEN-LAST:event_jTableEstateInfoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -867,7 +896,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private void jTableTojTextFields() {
         try{
         int selectedRowIndex = jTableEstateInfo.getSelectedRow();
-Object lastName;
+      Object lastName;
       Object firstName;
       Object lotNumber;
       Object price;
