@@ -1,15 +1,24 @@
 package Interfaces;
 
 import Classes.General.Button;
+import Classes.RealEstate.SortedList;
+import Classes.UserLogin.*;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 public class frmAddNewUser extends javax.swing.JInternalFrame {    
     
-    private static frmAddNewUser instance;   
+    private ListUserLogin userLogin;
+    private static SortedList list = new SortedList();
+    UserLoginXML userLoginXml = new UserLoginXML();
+    private static frmAddNewUser instance;      
     
     public frmAddNewUser() {
         
         initComponents();
+        this.setResizable(false);
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/Images/AddUser.png")));
     }
     
     public static frmAddNewUser GetInstance() 
@@ -20,6 +29,7 @@ public class frmAddNewUser extends javax.swing.JInternalFrame {
         }
         return instance;
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,6 +86,11 @@ public class frmAddNewUser extends javax.swing.JInternalFrame {
                 jBtnSubmitMouseExited(evt);
             }
         });
+        jBtnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSubmitActionPerformed(evt);
+            }
+        });
 
         jBtnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnCancel.setForeground(new java.awt.Color(255, 255, 255));
@@ -86,6 +101,11 @@ public class frmAddNewUser extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBtnCancelMouseExited(evt);
+            }
+        });
+        jBtnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCancelActionPerformed(evt);
             }
         });
 
@@ -158,6 +178,23 @@ public class frmAddNewUser extends javax.swing.JInternalFrame {
         ob.paint(getGraphics(), jBtnSubmit, "Exit");
     }//GEN-LAST:event_jBtnSubmitMouseExited
 
+    private void jBtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitActionPerformed
+
+        try {
+            userLogin = userLoginXml.getUserLogin(jTxtUserName.getText(), jTxtNewPwd.getText());
+            if (list.isThereHouse(userLogin)) {
+                JOptionPane.showMessageDialog(rootPane, "User name already in use");
+            } else {
+                list.insertHouse(userLogin);
+                userLoginXml.saveToUserLoginXML();
+                JOptionPane.showMessageDialog(rootPane, "User credentials added to list");
+            }
+        } catch (NumberFormatException badHouseData) {
+            // Text field info incorrectly formated
+            JOptionPane.showMessageDialog(rootPane, "Number? " + badHouseData.getMessage());
+        }
+    }//GEN-LAST:event_jBtnSubmitActionPerformed
+
     private void jBtnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnCancelMouseEntered
         Button ob = new Button();
         ob.paint(getGraphics(), jBtnCancel, "Entry");
@@ -167,6 +204,10 @@ public class frmAddNewUser extends javax.swing.JInternalFrame {
         Button ob = new Button();
         ob.paint(getGraphics(), jBtnCancel, "Exit");
     }//GEN-LAST:event_jBtnCancelMouseExited
+
+    private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jBtnCancelActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
       // Start, Button formatting

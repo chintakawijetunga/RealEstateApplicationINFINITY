@@ -1,15 +1,22 @@
 package Interfaces;
 
 import Classes.General.Button;
+import Classes.UserLogin.*;
+import javax.swing.ImageIcon;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 public class UserLogin extends javax.swing.JFrame {
     
+   private ListUserLogin userLogin;
+   Classes.UserLogin.UserLoginXML ob = new Classes.UserLogin.UserLoginXML();
 
    public UserLogin() 
    {
       initComponents();
+      this.setResizable(false);
+      ob.loadUserLoginXML();
+      setIconImage(new ImageIcon(getClass().getResource("/Images/Login.png")).getImage());
    }
 
     /**
