@@ -204,7 +204,7 @@ public class UserLogin extends javax.swing.JFrame {
             javax.swing.UIManager.put("RootPane.setupButtonVisible", false);
 
         } catch (javax.swing.UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RealEstate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRealEstate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
