@@ -526,7 +526,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 PopulateTheTable();
             }
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException badHouseData) {
             
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
         }
@@ -594,7 +594,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable.");
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException badHouseData) {
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
         }
     }//GEN-LAST:event_jBtnSearchActionPerformed
@@ -622,7 +622,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException badHouseData) {
             
             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
         }
@@ -896,7 +896,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private void jTableTojTextFields() {
         try{
         int selectedRowIndex = jTableEstateInfo.getSelectedRow();
-      Object lastName;
+Object lastName;
       Object firstName;
       Object lotNumber;
       Object price;
