@@ -3,6 +3,7 @@ package Interfaces;
 import Classes.General.Button;
 import Classes.UserLogin.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
@@ -28,14 +29,16 @@ public class UserLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTxtUserName1 = new javax.swing.JTextField();
+        jPwd1 = new javax.swing.JPasswordField();
         jLoginPanel = new javax.swing.JPanel();
         jLabelUserName = new javax.swing.JLabel();
         jLabelPwd = new javax.swing.JLabel();
         jBtnLogin = new javax.swing.JButton();
         jBtnCancel = new javax.swing.JButton();
         jTxtUserName = new javax.swing.JTextField();
-        jTxtPwd = new javax.swing.JTextField();
         jLabelPicture = new javax.swing.JLabel();
+        jPwd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Infinity Real Estates");
@@ -108,9 +111,9 @@ public class UserLogin extends javax.swing.JFrame {
                                     .addComponent(jLabelPwd))
                                 .addGap(54, 54, 54)
                                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTxtUserName)
-                                    .addComponent(jTxtPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                                    .addComponent(jPwd, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(jTxtUserName))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLoginPanelLayout.setVerticalGroup(
             jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,12 +122,12 @@ public class UserLogin extends javax.swing.JFrame {
                 .addComponent(jLabelPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelUserName))
                 .addGap(18, 18, 18)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPwd))
+                    .addComponent(jLabelPwd)
+                    .addComponent(jPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnLogin)
@@ -180,7 +183,38 @@ public class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnCancelMouseExited
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
-        // TODO add your handling code here:
+              
+        String pwd = String.copyValueOf(jPwd.getPassword());
+        Boolean showErrorMessage=false;
+
+        if (jTxtUserName.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter the user name.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        } else if (pwd.equals(null) || pwd.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter the password.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        }
+
+        if (!showErrorMessage) {
+//                house = getHouse();
+//
+//                if (list.isThereHouse(house)) {
+//
+//                    if (JOptionPane.showConfirmDialog(rootPane, "Lot Number specified already exists. \nDo you want to update Lot Number " + jTxtLotNo.getText() + "?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+//                        list.deleteHouse(house);
+//                        list.resetHouseList();
+//                        list.insertHouse(house);
+//                        JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully updated.");
+//                        PopulateTheTable();
+//                    }
+//                } else {
+//                    list.insertHouse(house);
+//                    JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully saved.");
+//                    PopulateTheTable();
+//                }
+        }
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
     private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed
@@ -223,8 +257,10 @@ public class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPwd;
     private javax.swing.JLabel jLabelUserName;
     private javax.swing.JPanel jLoginPanel;
-    private javax.swing.JTextField jTxtPwd;
+    private javax.swing.JPasswordField jPwd;
+    private javax.swing.JPasswordField jPwd1;
     private javax.swing.JTextField jTxtUserName;
+    private javax.swing.JTextField jTxtUserName1;
     // End of variables declaration//GEN-END:variables
     
 }

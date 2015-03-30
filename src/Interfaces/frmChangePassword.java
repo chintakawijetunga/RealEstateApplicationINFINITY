@@ -44,12 +44,12 @@ public class frmChangePassword extends javax.swing.JInternalFrame {
         jLabelOldPwd = new javax.swing.JLabel();
         jLabelNewPwd = new javax.swing.JLabel();
         jTxtUserName = new javax.swing.JTextField();
-        jTxtOldPwd = new javax.swing.JTextField();
-        jTxtNewPwd = new javax.swing.JTextField();
         jLabelConfirmPwd = new javax.swing.JLabel();
-        jTxtConfirmPwd = new javax.swing.JTextField();
         jBtnSubmit = new javax.swing.JButton();
         jBtnCancel = new javax.swing.JButton();
+        jNewPwd = new javax.swing.JPasswordField();
+        jCnfrmPwd = new javax.swing.JPasswordField();
+        jOldPwd = new javax.swing.JPasswordField();
 
         setClosable(true);
         setTitle("Change Password");
@@ -128,10 +128,10 @@ public class frmChangePassword extends javax.swing.JInternalFrame {
                             .addComponent(jLabelConfirmPwd))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtOldPwd, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTxtNewPwd, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtUserName)
-                            .addComponent(jTxtConfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jNewPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCnfrmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jOldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelChngPwdLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jBtnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,22 +143,22 @@ public class frmChangePassword extends javax.swing.JInternalFrame {
         jPanelChngPwdLayout.setVerticalGroup(
             jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelChngPwdLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUserName)
                     .addComponent(jTxtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelOldPwd)
-                    .addComponent(jTxtOldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jOldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNewPwd)
-                    .addComponent(jTxtNewPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNewPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelConfirmPwd)
-                    .addComponent(jTxtConfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCnfrmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanelChngPwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnSubmit)
@@ -192,18 +192,47 @@ public class frmChangePassword extends javax.swing.JInternalFrame {
 
     private void jBtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitActionPerformed
         
-        try {
-            userLogin = userLoginXml.getUserLogin(jTxtUserName.getText(), jTxtNewPwd.getText());
-            if (list.isThereHouse(userLogin)) {
-                JOptionPane.showMessageDialog(rootPane, "User name already in use");
-            } else {
-                list.insertHouse(userLogin);
-                userLoginXml.saveToUserLoginXML();
-                JOptionPane.showMessageDialog(rootPane, "User credentials added to list");
+        String oldPwd = String.copyValueOf(jOldPwd.getPassword());
+        String newPwd = String.copyValueOf(jNewPwd.getPassword());
+        String cnfrmPwd = String.copyValueOf(jCnfrmPwd.getPassword());
+        Boolean showErrorMessage=false;
+
+        if (jTxtUserName.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter your user name.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        } else if (oldPwd.equals(null) || oldPwd.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter your current password.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        }else if (newPwd.equals(null) || newPwd.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter your new password.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        }else if (cnfrmPwd.equals(null) || cnfrmPwd.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please confirm your new password.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        }else if (!cnfrmPwd.equals(newPwd)) {
+            JOptionPane.showMessageDialog(rootPane, "Passwords are not identical. Please confirm your new password.", "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage = true;
+            return;
+        }
+        
+        if (!showErrorMessage) {
+            try {
+                userLogin = userLoginXml.getUserLogin(jTxtUserName.getText(), jNewPwd.getPassword().toString());
+                if (list.isThereHouse(userLogin)) {
+                    JOptionPane.showMessageDialog(rootPane, "User name already in use");
+                } else {
+                    list.insertHouse(userLogin);
+                    userLoginXml.saveToUserLoginXML();
+                    JOptionPane.showMessageDialog(rootPane, "User credentials added to list");
+                }
+            } catch (NumberFormatException badHouseData) {
+                // Text field info incorrectly formated
+                JOptionPane.showMessageDialog(rootPane, "Number? " + badHouseData.getMessage());
             }
-        } catch (NumberFormatException badHouseData) {
-            // Text field info incorrectly formated
-            JOptionPane.showMessageDialog(rootPane, "Number? " + badHouseData.getMessage());
         }
     }//GEN-LAST:event_jBtnSubmitActionPerformed
 
@@ -232,14 +261,14 @@ public class frmChangePassword extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancel;
     private javax.swing.JButton jBtnSubmit;
+    private javax.swing.JPasswordField jCnfrmPwd;
     private javax.swing.JLabel jLabelConfirmPwd;
     private javax.swing.JLabel jLabelNewPwd;
     private javax.swing.JLabel jLabelOldPwd;
     private javax.swing.JLabel jLabelUserName;
+    private javax.swing.JPasswordField jNewPwd;
+    private javax.swing.JPasswordField jOldPwd;
     private javax.swing.JPanel jPanelChngPwd;
-    private javax.swing.JTextField jTxtConfirmPwd;
-    private javax.swing.JTextField jTxtNewPwd;
-    private javax.swing.JTextField jTxtOldPwd;
     private javax.swing.JTextField jTxtUserName;
     // End of variables declaration//GEN-END:variables
 }

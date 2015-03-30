@@ -49,10 +49,10 @@
                       <Component id="jLabelConfirmPwd" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="31" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTxtNewPwd" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jTxtConfirmPwd" alignment="1" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jNewPwd" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="jTxtUserName" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="jCnfrmPwd" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -76,14 +76,14 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelPwd" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTxtNewPwd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jNewPwd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelConfirmPwd" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTxtConfirmPwd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCnfrmPwd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBtnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -106,14 +106,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTxtUserName">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTxtNewPwd">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelConfirmPwd">
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirm Password"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTxtConfirmPwd">
         </Component>
         <Component class="javax.swing.JButton" name="jBtnSubmit">
           <Properties>
@@ -146,6 +142,10 @@
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtnCancelMouseExited"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnCancelActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="jNewPwd">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="jCnfrmPwd">
         </Component>
       </SubComponents>
     </Container>
