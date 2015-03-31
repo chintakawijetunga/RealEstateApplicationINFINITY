@@ -198,22 +198,17 @@ public class UserLogin extends javax.swing.JFrame {
         }
 
         if (!showErrorMessage) {
-//                house = getHouse();
-//
-//                if (list.isThereHouse(house)) {
-//
-//                    if (JOptionPane.showConfirmDialog(rootPane, "Lot Number specified already exists. \nDo you want to update Lot Number " + jTxtLotNo.getText() + "?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-//                        list.deleteHouse(house);
-//                        list.resetHouseList();
-//                        list.insertHouse(house);
-//                        JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully updated.");
-//                        PopulateTheTable();
-//                    }
-//                } else {
-//                    list.insertHouse(house);
-//                    JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully saved.");
-//                    PopulateTheTable();
-//                }
+
+            if (jTxtUserName.getText().equals("Admin") && pwd.equals("Admin123")) {
+
+                new frmMainMenu().setVisible(true);
+                this.setVisible(false);
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Invalid login credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+                jTxtUserName.setText(null);
+                jPwd.setText(null);
+            }
         }
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
