@@ -581,22 +581,33 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
 
-        int lotNumber;
+       String inputValue;
+       int lotNumber;
 
-        try {
-            lotNumber = Integer.parseInt(JOptionPane.showInputDialog(this,"Please enter the Lot Number to Search: ","Search Lot Number",JOptionPane.QUESTION_MESSAGE));
+       try {
 
-            house = new ListHouse("", "", lotNumber, 0, 0, 0);
+          inputValue = JOptionPane.showInputDialog(this, "Please enter the Lot Number to Search: ", "Search Lot Number", JOptionPane.QUESTION_MESSAGE);
 
-            if (list.isThereHouse(house)) {
+          while (!inputValue.matches("[0-9]*") || inputValue.isEmpty()) {
+
+             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+             inputValue = JOptionPane.showInputDialog(this, "Please enter the Lot Number to Search: ", "Search Lot Number", JOptionPane.QUESTION_MESSAGE);
+          }
+
+          if (inputValue.matches("[0-9]*") || !inputValue.isEmpty()) {
+             lotNumber = Integer.parseInt(inputValue);
+             house = new ListHouse("", "", lotNumber, 0, 0, 0);
+
+             if (list.isThereHouse(house)) {
                 house = (ListHouse) list.retrieveHouse(house);
                 showHouse(house);
-            } else {
+             } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable.");
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
-        }
+             }
+          }
+       } catch (NumberFormatException e) {
+          JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+       }
     }//GEN-LAST:event_jBtnSearchActionPerformed
 
     private void jBtnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDeleteMouseEntered
