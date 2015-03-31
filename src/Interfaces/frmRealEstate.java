@@ -610,22 +610,27 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnDeleteMouseExited
 
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
-        try {
-            house = getHouse();
-            if (list.isThereHouse(house)) {
+  
+       int optionValue = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this lot number?", "Delete lot number", JOptionPane.YES_NO_OPTION);
+
+       if (optionValue == JOptionPane.YES_OPTION) {
+          try {
+             house = getHouse();
+             if (list.isThereHouse(house)) {
                 list.deleteHouse(house);
-                JOptionPane.showMessageDialog(rootPane, "Lot Number "+house.lotNumber() +" is deleted.");
+                JOptionPane.showMessageDialog(rootPane, "Lot Number " + house.lotNumber() + " is deleted.");
                 list.resetHouseList();
                 house = (ListHouse) list.getNextItem(false);
                 showHouse(house);
                 PopulateTheTable();
-            } else {
+             } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
-            }
-        } catch (NumberFormatException e) {
-            
-            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
-        }
+             }
+          } catch (NumberFormatException e) {
+
+             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+          }
+       }
     }//GEN-LAST:event_jBtnDeleteActionPerformed
 
     private void jBtnPrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPrevMouseEntered
