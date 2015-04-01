@@ -912,23 +912,15 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     private void jTableTojTextFields() {
         try{
         int selectedRowIndex = jTableEstateInfo.getSelectedRow();
-      Object lastName;
-      Object firstName;
-      Object lotNumber;
-      Object price;
-      Object squareFeet;
-      Object bedRooms;
       
-      lotNumber = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 0);
-      firstName = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 1);
-      lastName = jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 2);
-      price = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
-      squareFeet = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
-      bedRooms = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3));
-        
-        
-        
-        jTxtLotNo.setText(Integer.toString((int) lotNumber));
+      
+        int lotNumber = Integer.parseInt(jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 0).toString());
+        String firstName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 1).toString());
+        String lastName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 2).toString());
+        int price = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3)).toString());
+        int squareFeet = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 4)).toString());
+        int bedRooms = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 5)).toString());
+
         jTxtFirstName.setText((String) firstName);
         jTxtLastName.setText((String) lastName);
         jTxtPrice.setText(Integer.toString((int) price));
