@@ -528,7 +528,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             }
         } catch (NumberFormatException e) {
             
-            JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+            JOptionPane.showMessageDialog(rootPane, "Please specify the entries in correct format.");
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
