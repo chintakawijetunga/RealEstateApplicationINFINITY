@@ -612,6 +612,9 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
        try {
 
           inputValue = JOptionPane.showInputDialog(this, "Please enter the Lot Number to Search: ", "Search Lot Number", JOptionPane.QUESTION_MESSAGE);
+          
+          if(inputValue!=null)              
+          {
 
           while (!inputValue.matches("[0-9]*") || inputValue.isEmpty()) {
 
@@ -634,6 +637,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           fieldEnableDisable(true);
           enableAllButtons();
           buttonEnableDisable("Search", false);
+          }
           
        } catch (NumberFormatException e) {
           JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format.\nLot Number contains only numbers.");
