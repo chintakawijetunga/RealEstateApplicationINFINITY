@@ -2,9 +2,11 @@ package Interfaces;
 
 import Classes.General.Button;
 import Classes.RealEstate.*;
+import java.awt.*;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -25,11 +27,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         }
         return instance;
     }
-    
-    /**
-     * Creates new form frmRealEstate
-     */
-    
+        
     private final String path= "file.xml";
     
     private static SortedList list = new SortedList();
@@ -451,13 +449,8 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnAddMouseExited
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
-        jTxtFirstName.setText("");
-        jTxtLastName.setText("");
-        jTxtLotNo.setText("");
-        jTxtNoOfBedrooms.setText("");
-        jTxtPrice.setText("");
-        jTxtSqFeet.setText("");
-
+        
+       clearTextFields(this.getContentPane());
     }//GEN-LAST:event_jBtnAddActionPerformed
 
     private void jBtnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSaveMouseEntered
@@ -501,35 +494,31 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             showErrorMessage=true;
             }
             
-            if(showErrorMessage)
-            {
-            JOptionPane.showMessageDialog(rootPane, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-           
-            }
-            else
-            {
-            house = getHouse();
-            
-            if (list.isThereHouse(house)) {
-                
-                if(JOptionPane.showConfirmDialog (rootPane, "Lot Number specified already exists. \nDo you want to update Lot Number " + jTxtLotNo.getText()+"?","Warning",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-                {
-                list.deleteHouse(house);
-                list.resetHouseList();
-                list.insertHouse(house);
-                JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText()+" is successfully updated.");
-                PopulateTheTable();
-                }
-            } else {
-                list.insertHouse(house);
-                JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText()+" is successfully saved.");
-                PopulateTheTable();
-            }
-            }
-        } catch (NumberFormatException e) {
-            
-            JOptionPane.showMessageDialog(rootPane, "Please specify the entries in correct format.");
-        }
+            if (showErrorMessage) {
+              JOptionPane.showMessageDialog(rootPane, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+
+           } else {
+
+              house = getHouse();
+
+              if (list.isThereHouse(house)) {
+
+                 if (JOptionPane.showConfirmDialog(rootPane, "Lot Number specified already exists. \nDo you want to update Lot Number " + jTxtLotNo.getText() + "?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    list.deleteHouse(house);
+                    list.resetHouseList();
+                    list.insertHouse(house);
+                    JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully updated.");
+                    PopulateTheTable();
+                 }
+              } else {
+                 list.insertHouse(house);
+                 JOptionPane.showMessageDialog(rootPane, "House details with Lot Number " + jTxtLotNo.getText() + " is successfully saved.");
+                 PopulateTheTable();
+              }
+           }
+       } catch (NumberFormatException e) {
+          JOptionPane.showMessageDialog(rootPane, "Please specify the entries in correct format.");
+       }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     private void jBtnResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResetMouseEntered
@@ -559,14 +548,10 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnClearMouseExited
 
     private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
-        jTxtFirstName.setText("");
-        jTxtLastName.setText("");
-        jTxtLotNo.setText("");
-        jTxtNoOfBedrooms.setText("");
-        jTxtPrice.setText("");
-        jTxtSqFeet.setText("");
-        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
-        model.setRowCount(0);
+        
+       clearTextFields(this.getContentPane());
+       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+       model.setRowCount(0);
     }//GEN-LAST:event_jBtnClearActionPerformed
 
     private void jBtnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseEntered
@@ -638,7 +623,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
              }
           } catch (NumberFormatException e) {
-
              JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
           }
        }
@@ -784,7 +768,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                //			JOptionPane.showMessageDialog(rootPane,xmlValue);
             }
          }
-
          
       } catch (Exception e) {
          JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
@@ -884,55 +867,57 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         }
     }
     
-    private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price,
-            int squareFeet, int bedRooms) {
-    
-    Element house = doc.createElement("House");
+    private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price, int squareFeet, int bedRooms) {
+   
+       Element house = doc.createElement("House");
 
-        
-        house.setAttribute("lotNumber", Integer.toString(lotNumber));
-        house.appendChild(getHouseElements(doc, "firstName", firstName));
-        house.appendChild(getHouseElements(doc, "lastName", lastName));
-        house.appendChild(getHouseElements(doc, "price", Integer.toString(price)));
-        house.appendChild(getHouseElements(doc, "squareFeet", Integer.toString(squareFeet)));
-        house.appendChild(getHouseElements(doc, "bedRooms", Integer.toString(bedRooms)));
-        
-        return house;
-    
-    
+       house.setAttribute("lotNumber", Integer.toString(lotNumber));
+       house.appendChild(getHouseElements(doc, "firstName", firstName));
+       house.appendChild(getHouseElements(doc, "lastName", lastName));
+       house.appendChild(getHouseElements(doc, "price", Integer.toString(price)));
+       house.appendChild(getHouseElements(doc, "squareFeet", Integer.toString(squareFeet)));
+       house.appendChild(getHouseElements(doc, "bedRooms", Integer.toString(bedRooms)));
+
+       return house;   
     }
     
     private static Node getHouseElements(Document doc, String name, String value) {
         Element node = doc.createElement(name);
         node.appendChild(doc.createTextNode(value));
         return node;
-    }
-    
+    }    
     
     private void jTableTojTextFields() {
-        try{
-        int selectedRowIndex = jTableEstateInfo.getSelectedRow();
-      
-      
-        int lotNumber = Integer.parseInt(jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 0).toString());
-        String firstName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 1).toString());
-        String lastName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 2).toString());
-        int price = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3)).toString());
-        int squareFeet = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 4)).toString());
-        int bedRooms = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 5)).toString());
-
-        jTxtFirstName.setText((String) firstName);
-        jTxtLastName.setText((String) lastName);
-        jTxtPrice.setText(Integer.toString((int) price));
-        jTxtSqFeet.setText(Integer.toString((int) squareFeet));
-        jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
         
-    }
+       try {
+          int selectedRowIndex = jTableEstateInfo.getSelectedRow();
 
+          int lotNumber = Integer.parseInt(jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 0).toString());
+          String firstName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 1).toString());
+          String lastName = (jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 2).toString());
+          int price = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 3)).toString());
+          int squareFeet = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 4)).toString());
+          int bedRooms = Integer.parseInt((jTableEstateInfo.getModel().getValueAt(selectedRowIndex, 5)).toString());
+
+          jTxtFirstName.setText((String) firstName);
+          jTxtLastName.setText((String) lastName);
+          jTxtPrice.setText(Integer.toString((int) price));
+          jTxtSqFeet.setText(Integer.toString((int) squareFeet));
+          jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
+       } catch (Exception e) {
+          JOptionPane.showMessageDialog(rootPane, e.getMessage());
+       }
+    }
     
+    public void clearTextFields(Container container) {
+
+      for (Component c : container.getComponents()) {
+         if (c instanceof JTextField) {
+            JTextField f = (JTextField) c;
+            f.setText("");
+         } else if (c instanceof Container) {
+            clearTextFields((Container) c);
+         }
+      }
+   }    
 }
