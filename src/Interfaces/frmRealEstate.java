@@ -81,7 +81,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
          public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
          }
          public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            formInternalFrameClosing(evt);
          }
          public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
          }
@@ -591,6 +590,8 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
        enableAllButtons();
        buttonEnableDisable("Clear", false);
        clearTextFields(this.getContentPane());  
+       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+       model.setRowCount(0);   
     }//GEN-LAST:event_jBtnClearActionPerformed
 
     private void jBtnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseEntered
@@ -762,17 +763,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
        model.setRowCount(0);    
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-       SaveToXML();
-       fieldEnableDisable(false);
-       clearTextFields(this.getContentPane());
-       enableAllButtons();
-       buttonEnableDisable("FormOpen", false);
-       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
-       model.setRowCount(0);
-       frmRealEstate.jMainDesktopPane.remove(this);
-    }//GEN-LAST:event_formInternalFrameClosing
-
     private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
         jTableTojTextFields();
     }//GEN-LAST:event_jTableEstateInfoMouseClicked
@@ -900,33 +890,32 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
-            
-            Element rootElement = doc.createElementNS("http://www.InfinityRealEstates.com/house", "Houses");
-            
-            doc.appendChild(rootElement);
- 
-            while(count<list.listLengthIs()){
-            ListHouse house = (ListHouse) list.getNextItem(false);
-            rootElement.appendChild(getHouse(doc, house.lotNumber(), house.firstName(), house.lastName(), house.price(), house.squareFeet(), house.bedRooms()));
-            count++;
-            }
- 
-            
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource source = new DOMSource(doc);
- 
-            StreamResult file = new StreamResult(new File(path));
- 
-            transformer.transform(source, file);
- 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
+          dBuilder = dbFactory.newDocumentBuilder();
+          Document doc = dBuilder.newDocument();
+
+          Element rootElement = doc.createElementNS("http://www.InfinityRealEstates.com/house", "Houses");
+
+          doc.appendChild(rootElement);
+
+          while (count < list.listLengthIs()) {
+             ListHouse house = (ListHouse) list.getNextItem(false);
+             rootElement.appendChild(getHouse(doc, house.lotNumber(), house.firstName(), house.lastName(), house.price(), house.squareFeet(), house.bedRooms()));
+             count++;
+          }
+
+          TransformerFactory transformerFactory = TransformerFactory.newInstance();
+          Transformer transformer = transformerFactory.newTransformer();
+
+          transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+          DOMSource source = new DOMSource(doc);
+
+          StreamResult file = new StreamResult(new File(path));
+
+          transformer.transform(source, file);
+
+       } catch (Exception e) {
+          JOptionPane.showMessageDialog(rootPane, e.getMessage());
+       }
     }
     
     private static Node getHouse(Document doc, int lotNumber, String firstName, String lastName, int price, int squareFeet, int bedRooms) {
@@ -967,6 +956,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           jTxtPrice.setText(Integer.toString((int) price));
           jTxtSqFeet.setText(Integer.toString((int) squareFeet));
           jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
+          
        } catch (Exception e) {
           JOptionPane.showMessageDialog(rootPane, e.getMessage());
        }
@@ -1021,8 +1011,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             break;
          }
          case "Populate": {
-            jBtnSave.setEnabled(value);
-            jBtnReset.setEnabled(value);
             jBtnClear.setEnabled(value);
             break;
          }
@@ -1046,14 +1034,9 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             break;
          }
          case "Clear": {
-            jBtnPopulate.setEnabled(value);
-            jBtnAdd.setEnabled(value);
+            jBtnClear.setEnabled(value);
             jBtnReset.setEnabled(value);
-            jBtnSearch.setEnabled(value);
             jBtnDelete.setEnabled(value);
-            jBtnNext.setEnabled(value);
-            jBtnPrev.setEnabled(value);
-            jTableEstateInfo.setEnabled(value);
             break;
          }
          case "Search": {

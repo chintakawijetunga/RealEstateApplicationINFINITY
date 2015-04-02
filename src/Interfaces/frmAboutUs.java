@@ -45,7 +45,6 @@ public class frmAboutUs extends javax.swing.JInternalFrame {
          public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
          }
          public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            formInternalFrameClosing(evt);
          }
          public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
          }
@@ -140,10 +139,6 @@ public class frmAboutUs extends javax.swing.JInternalFrame {
        this.dispose();
        frmAboutUs.jMainDesktopPane.remove(this);
     }//GEN-LAST:event_jBtnCloseActionPerformed
-
-   private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-      frmAboutUs.jMainDesktopPane.remove(this);
-   }//GEN-LAST:event_formInternalFrameClosing
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -109,8 +109,7 @@ public class frmMainMenu extends javax.swing.JFrame {
    }// </editor-fold>//GEN-END:initComponents
 
     private void jMIExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIExitActionPerformed
-       
-        this.dispose();
+       this.dispose();
     }//GEN-LAST:event_jMIExitActionPerformed
 
     private void jMIRealEstateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRealEstateActionPerformed
@@ -129,7 +128,6 @@ public class frmMainMenu extends javax.swing.JFrame {
        } catch (PropertyVetoException ex) {
           Logger.getLogger(frmMainMenu.class.getName()).log(Level.SEVERE, null, ex);
        }
-
     }//GEN-LAST:event_jMIRealEstateActionPerformed
 
     private void jMIAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAboutUsActionPerformed

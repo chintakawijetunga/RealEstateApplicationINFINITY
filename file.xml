@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Houses xmlns="http://www.InfinityRealEstates.com/house">
-<House lotNumber="10">
-<firstName>w</firstName>
-<lastName>w</lastName>
-<price>1</price>
-<squareFeet>1</squareFeet>
-<bedRooms>1</bedRooms>
-</House>
 <House lotNumber="2000">
 <firstName>Rasanjana</firstName>
 <lastName>De Alwis</lastName>
@@ -27,5 +20,12 @@
 <price>50</price>
 <squareFeet>5555</squareFeet>
 <bedRooms>55</bedRooms>
+</House>
+<House lotNumber="6000">
+<firstName>Anuja</firstName>
+<lastName>Perera</lastName>
+<price>15</price>
+<squareFeet>25</squareFeet>
+<bedRooms>2</bedRooms>
 </House>
 </Houses>
