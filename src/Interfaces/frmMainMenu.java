@@ -3,10 +3,11 @@ package Interfaces;
 import java.beans.PropertyVetoException;
 import java.util.logging.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 public class frmMainMenu extends javax.swing.JFrame {
-
+   
     public frmMainMenu() {
         
         initComponents();
@@ -114,32 +115,33 @@ public class frmMainMenu extends javax.swing.JFrame {
 
     private void jMIRealEstateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRealEstateActionPerformed
 
-        frmRealEstate obj = frmRealEstate.GetInstance();
+       frmRealEstate obj = frmRealEstate.GetInstance(jMainDesktopPane);
 
-        if (!obj.isVisible()) {
-            jMainDesktopPane.add(obj);
-            obj.setVisible(true);
-        } else {
-            obj.toFront();
-        }
+       if (!obj.isVisible()) {
+          jMainDesktopPane.add(obj);
+          obj.setVisible(true);
+       } else {
+          obj.toFront();
+       }
 
-        try {
-            obj.setMaximum(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(frmMainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+          obj.setMaximum(true);
+       } catch (PropertyVetoException ex) {
+          Logger.getLogger(frmMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
     }//GEN-LAST:event_jMIRealEstateActionPerformed
 
     private void jMIAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAboutUsActionPerformed
-        // TODO add your handling code here:
-        frmAboutUs obj = frmAboutUs.GetInstance();
 
-        if (!obj.isVisible()) {
-            jMainDesktopPane.add(obj);
-            obj.setVisible(true);
-        } else {
-            obj.toFront();
-        }
+       frmAboutUs obj = frmAboutUs.GetInstance(jMainDesktopPane);
+
+       if (!obj.isVisible()) {
+          jMainDesktopPane.add(obj);
+          obj.setVisible(true);
+       } else {
+          obj.toFront();
+       }
     }//GEN-LAST:event_jMIAboutUsActionPerformed
 
     /**

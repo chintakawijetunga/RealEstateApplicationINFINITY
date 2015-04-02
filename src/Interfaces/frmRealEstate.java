@@ -5,6 +5,7 @@ import Classes.RealEstate.*;
 import java.awt.*;
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -17,25 +18,25 @@ import org.w3c.dom.*;
 
 public class frmRealEstate extends javax.swing.JInternalFrame {
 
-    private static frmRealEstate instance;
+   private static frmRealEstate instance;
+   private static JDesktopPane jMainDesktopPane;
+   private final String path = "file.xml";
+   private static SortedList list = new SortedList();
+   private ListHouse house;
    
-    public static frmRealEstate GetInstance() {
+   public static frmRealEstate GetInstance(JDesktopPane jMainDesktopPane) {
       if (instance == null) {
-         instance = new frmRealEstate();
+         instance = new frmRealEstate(jMainDesktopPane);
       }
       return instance;
    }
-        
-    private final String path= "file.xml";
-    
-    private static SortedList list = new SortedList();
-    private ListHouse house;
-    
-    public frmRealEstate() {
-        initComponents();      
-        loadTheXMLFile();
-        this.setFrameIcon(new ImageIcon(getClass().getResource("/Images/RealEstate.png")));
-    }
+
+   public frmRealEstate(JDesktopPane jMainDesktopPane) {
+      initComponents();
+      frmRealEstate.jMainDesktopPane = jMainDesktopPane;
+      loadTheXMLFile();
+      this.setFrameIcon(new ImageIcon(getClass().getResource("/Images/RealEstate.png")));
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +73,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       jBtnNext = new javax.swing.JButton();
       jBtnPopulate = new javax.swing.JButton();
 
-      setClosable(true);
       setTitle("Real Estate Details");
       setNextFocusableComponent(jBtnPopulate);
       addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -422,7 +422,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                         .addComponent(jTxtSqFeet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                   .addGap(43, 43, 43)
                   .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
             .addGroup(jMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                   .addComponent(jBtnNext)
@@ -456,8 +456,16 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnCloseMouseExited
 
     private void jBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCloseActionPerformed
-        SaveToXML();
-        this.dispose();
+       SaveToXML();
+       fieldEnableDisable(false);
+       clearTextFields(this.getContentPane());
+       enableAllButtons();
+       buttonEnableDisable("FormOpen", false);
+       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+       model.setRowCount(0);
+       this.dispose();
+       frmRealEstate.jMainDesktopPane.remove(this);
+       
     }//GEN-LAST:event_jBtnCloseActionPerformed
 
     private void jBtnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseEntered
@@ -472,6 +480,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
        fieldEnableDisable(true);
+       enableAllButtons();
        buttonEnableDisable("Add", false);
        clearTextFields(this.getContentPane());       
     }//GEN-LAST:event_jBtnAddActionPerformed
@@ -540,6 +549,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
               }
   
               fieldEnableDisable(true);
+              enableAllButtons();
               buttonEnableDisable("Save", false);
            }
        } catch (NumberFormatException e) {
@@ -559,6 +569,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private void jBtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnResetActionPerformed
        fieldEnableDisable(true);
+       enableAllButtons();
        buttonEnableDisable("Reset", false);
        list.resetHouseList();
        house = (ListHouse) list.getNextItem(false);
@@ -577,10 +588,9 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
        fieldEnableDisable(true);
+       enableAllButtons();
        buttonEnableDisable("Clear", false);
-       clearTextFields(this.getContentPane());       
-//       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
-//       model.setRowCount(0);
+       clearTextFields(this.getContentPane());  
     }//GEN-LAST:event_jBtnClearActionPerformed
 
     private void jBtnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSearchMouseEntered
@@ -604,7 +614,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
           while (!inputValue.matches("[0-9]*") || inputValue.isEmpty()) {
 
-             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format.\nLot Number contains only numbers.");
              inputValue = JOptionPane.showInputDialog(this, "Please enter the Lot Number to Search: ", "Search Lot Number", JOptionPane.QUESTION_MESSAGE);
           }
 
@@ -621,10 +631,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           }
           
           fieldEnableDisable(true);
+          enableAllButtons();
           buttonEnableDisable("Search", false);
           
        } catch (NumberFormatException e) {
-          JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+          JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format.\nLot Number contains only numbers.");
        }
     }//GEN-LAST:event_jBtnSearchActionPerformed
 
@@ -656,11 +667,12 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
              }
           } catch (NumberFormatException e) {
-             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format. Lot Number contains only numbers.");
+             JOptionPane.showMessageDialog(rootPane, "Please specify the Lot Number in correct format.\nLot Number contains only numbers.");
           }
        }
        
        fieldEnableDisable(true);
+       enableAllButtons();
        buttonEnableDisable("Search", false);
     }//GEN-LAST:event_jBtnDeleteActionPerformed
 
@@ -715,6 +727,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           JOptionPane.showMessageDialog(rootPane, "No houses to be shown.");
        }
        fieldEnableDisable(true);
+       enableAllButtons();
        buttonEnableDisable("Populate", false);
     }//GEN-LAST:event_jBtnPopulateActionPerformed
 
@@ -742,17 +755,25 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       // End, Table formatting
        
        fieldEnableDisable(false);
+       clearTextFields(this.getContentPane());
+       enableAllButtons();
        buttonEnableDisable("FormOpen", false);
        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
        model.setRowCount(0);    
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        SaveToXML();
+       SaveToXML();
+       fieldEnableDisable(false);
+       clearTextFields(this.getContentPane());
+       enableAllButtons();
+       buttonEnableDisable("FormOpen", false);
+       DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+       model.setRowCount(0);
+       frmRealEstate.jMainDesktopPane.remove(this);
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void jTableEstateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstateInfoMouseClicked
-        // TODO add your handling code here:
         jTableTojTextFields();
     }//GEN-LAST:event_jTableEstateInfoMouseClicked
 
@@ -796,7 +817,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
          Document doc = dBuilder.parse(fXmlFile);
 
          doc.getDocumentElement().normalize();
-
          
          NodeList nList = doc.getElementsByTagName("House");
          int listSize=nList.getLength();
@@ -804,12 +824,10 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
          for (int temp = 0; temp < listSize; temp++) {
 
             Node nNode = nList.item(temp);
-
-               //JOptionPane.showMessageDialog(rootPane,"\nCurrent Element :" + nNode.getNodeName());
+               
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                house = HouseFile.getNextHouse(nNode);
-               list.insertHouse(house);
-               //			JOptionPane.showMessageDialog(rootPane,xmlValue);
+               list.insertHouse(house);               
             }
          }
          
@@ -975,6 +993,20 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       jTxtNoOfBedrooms.setEnabled(value);
    }
    
+   private void enableAllButtons() {
+      jBtnPopulate.setEnabled(true);
+      jBtnAdd.setEnabled(true);
+      jBtnSave.setEnabled(true);
+      jBtnReset.setEnabled(true);
+      jBtnClear.setEnabled(true);
+      jBtnSearch.setEnabled(true);
+      jBtnDelete.setEnabled(true);
+      jBtnNext.setEnabled(true);
+      jBtnPrev.setEnabled(true);
+      jBtnClose.setEnabled(true);
+      jTableEstateInfo.setEnabled(true);
+   }
+   
    private void buttonEnableDisable(String button, boolean value) {
 
       switch (button) {
@@ -982,10 +1014,10 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             jBtnSave.setEnabled(value);
             jBtnReset.setEnabled(value);
             jBtnClear.setEnabled(value);
+            jBtnDelete.setEnabled(value);
             jBtnNext.setEnabled(value);
             jBtnPrev.setEnabled(value);             
             jTableEstateInfo.setEnabled(value);
-
             break;
          }
          case "Populate": {
