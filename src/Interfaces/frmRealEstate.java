@@ -826,7 +826,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
          }
          
       } catch (Exception e) {
-         JOptionPane.showMessageDialog(rootPane, e.getMessage().toString());
+         JOptionPane.showMessageDialog(rootPane, "Error occured when reading the XML file.");
       }    
    }
 
@@ -842,6 +842,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
    private void PopulateTheTable() 
    {
+       try{
       ListHouse house;
       int count = 0;
       list.resetHouseList();
@@ -865,6 +866,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       }
       list.resetHouseList();
       jTableEstateInfo.setModel(model);
+       }
+       catch (Exception e) {
+          JOptionPane.showMessageDialog(rootPane, "Error occured while retreiving the data.");
+       }
+       
    }
 
    private ListHouse getHouse() 
@@ -918,7 +924,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           transformer.transform(source, file);
 
        } catch (Exception e) {
-          JOptionPane.showMessageDialog(rootPane, e.getMessage());
+          JOptionPane.showMessageDialog(rootPane, "Error occured when writing to the XML file.");
        }
     }
     
@@ -962,7 +968,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
           
        } catch (Exception e) {
-          JOptionPane.showMessageDialog(rootPane, e.getMessage());
+          JOptionPane.showMessageDialog(rootPane, "Unrecognized Error occured.");
        }
     }
 
