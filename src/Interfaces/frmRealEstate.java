@@ -4,10 +4,7 @@ import Classes.General.Button;
 import Classes.RealEstate.*;
 import java.awt.*;
 import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -174,6 +171,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jTableEstateInfo.setNextFocusableComponent(jBtnPrev);
         jTableEstateInfo.setSelectionBackground(new java.awt.Color(0, 153, 204));
         jTableEstateInfo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableEstateInfo.getTableHeader().setReorderingAllowed(false);
         jTableEstateInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableEstateInfoMouseClicked(evt);
@@ -957,38 +955,35 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
       jTxtNoOfBedrooms.setText(Integer.toString(house.bedRooms()));
    }
 
-   private void PopulateTheTable() 
-   {
-       try{
-      ListHouse house;
-      int count = 0;
-      list.resetHouseList();
-      Object[] columnNames = {"Lot Number", "First Name", "Last Name", "Price", "Square Feet", "No of Bedrooms"};
-      DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
-      
-      while (count <= list.listLengthIs() - 1) 
-      {
-         Object[] o = new Object[6];
-         
-         house = (ListHouse) list.getNextItem(false);
+    private void PopulateTheTable() {
+        try {
+            ListHouse house;
+            int count = 0;
+            list.resetHouseList();
+            Object[] columnNames = {"Lot Number", "First Name", "Last Name", "Price", "Square Feet", "No of Bedrooms"};
+            DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
 
-         o[0] = Integer.toString(house.lotNumber());
-         o[1] = (house.firstName());
-         o[2] = (house.lastName());
-         o[3] = (house.price());
-         o[4] = (house.squareFeet());
-         o[5] = (house.bedRooms());
-         model.addRow(o);
-         count++;
-      }
-      list.resetHouseList();
-      jTableEstateInfo.setModel(model);
-       }
-       catch (Exception e) {
-          JOptionPane.showMessageDialog(rootPane, "Error occured while retreiving the data.");
-       }
-       
-   }
+            while (count <= list.listLengthIs() - 1) {
+                Object[] o = new Object[6];
+
+                house = (ListHouse) list.getNextItem(false);
+
+                o[0] = Integer.toString(house.lotNumber());
+                o[1] = (house.firstName());
+                o[2] = (house.lastName());
+                o[3] = (house.price());
+                o[4] = (house.squareFeet());
+                o[5] = (house.bedRooms());
+                model.addRow(o);
+                count++;
+            }
+            list.resetHouseList();
+            jTableEstateInfo.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error occured while retreiving the data.");
+        }
+
+    }
 
    private ListHouse getHouse() 
    {
@@ -1084,8 +1079,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           jTxtSqFeet.setText(Integer.toString((int) squareFeet));
           jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
           
-          //jTxtLotNo.setEnabled(false);
-          
+           
        } catch (Exception e) {
           JOptionPane.showMessageDialog(rootPane, "Unrecognized Error occured.");
        }
@@ -1105,7 +1099,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
    }   
 
    private void fieldEnableDisable(boolean value) {
-      //jTxtLotNo.setEnabled(value);
       jTxtFirstName.setEnabled(value);
       jTxtLastName.setEnabled(value);
       jTxtPrice.setEnabled(value);
@@ -1142,7 +1135,6 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
             break;
          }
          case "Populate": {
-            //jBtnClear.setEnabled(value);             
             jBtnSave.setEnabled(value);
             break;
          }
