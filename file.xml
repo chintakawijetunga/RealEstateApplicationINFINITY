@@ -14,6 +14,13 @@
 <squareFeet>44441</squareFeet>
 <bedRooms>221</bedRooms>
 </House>
+<House lotNumber="4654">
+<firstName>Disni</firstName>
+<lastName>Charuka</lastName>
+<price>123</price>
+<squareFeet>654</squareFeet>
+<bedRooms>123</bedRooms>
+</House>
 <House lotNumber="5000">
 <firstName>Chintaka5</firstName>
 <lastName>Wijetunga5</lastName>

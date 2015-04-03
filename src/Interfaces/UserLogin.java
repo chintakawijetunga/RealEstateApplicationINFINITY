@@ -194,7 +194,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         if (!showErrorMessage) {
 
-            if (jTxtUserName.getText().equals("Admin") && pwd.equals("Admin123")) {
+            if (jTxtUserName.getText().equals("admin") && pwd.equals("admin")) {
 
                 new frmMainMenu().setVisible(true);
                 this.setVisible(false);
