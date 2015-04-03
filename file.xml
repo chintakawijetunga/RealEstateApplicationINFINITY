@@ -3,43 +3,36 @@
 <House lotNumber="2000">
 <firstName>Rasanjana</firstName>
 <lastName>De Alwis</lastName>
-<price>75</price>
-<squareFeet>4444</squareFeet>
-<bedRooms>22</bedRooms>
+<price>750000</price>
+<squareFeet>45000</squareFeet>
+<bedRooms>10</bedRooms>
 </House>
 <House lotNumber="3000">
-<firstName>Rasanjana11</firstName>
-<lastName>De Alwis11</lastName>
-<price>751</price>
-<squareFeet>44441</squareFeet>
-<bedRooms>221</bedRooms>
-</House>
-<House lotNumber="4654">
 <firstName>Disni</firstName>
 <lastName>Charuka</lastName>
-<price>123</price>
-<squareFeet>654</squareFeet>
-<bedRooms>123</bedRooms>
+<price>1000000</price>
+<squareFeet>25000</squareFeet>
+<bedRooms>5</bedRooms>
 </House>
 <House lotNumber="5000">
-<firstName>Chintaka5</firstName>
-<lastName>Wijetunga5</lastName>
-<price>50</price>
-<squareFeet>5555</squareFeet>
-<bedRooms>55</bedRooms>
+<firstName>Chintaka</firstName>
+<lastName>Wijetunga</lastName>
+<price>5000000</price>
+<squareFeet>75000</squareFeet>
+<bedRooms>7</bedRooms>
 </House>
 <House lotNumber="6000">
 <firstName>Anuja</firstName>
-<lastName>Perera</lastName>
-<price>15</price>
-<squareFeet>25</squareFeet>
-<bedRooms>2</bedRooms>
+<lastName>Wijethunga</lastName>
+<price>250000</price>
+<squareFeet>30000</squareFeet>
+<bedRooms>4</bedRooms>
 </House>
 <House lotNumber="7000">
 <firstName>Piyumi</firstName>
 <lastName>Danthanarayana</lastName>
-<price>50000</price>
-<squareFeet>5000</squareFeet>
-<bedRooms>7</bedRooms>
+<price>4000000</price>
+<squareFeet>32000</squareFeet>
+<bedRooms>8</bedRooms>
 </House>
 </Houses>

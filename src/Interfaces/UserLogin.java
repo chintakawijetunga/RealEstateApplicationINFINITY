@@ -50,6 +50,7 @@ public class UserLogin extends javax.swing.JFrame {
         jBtnLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnLogin.setForeground(new java.awt.Color(255, 255, 255));
         jBtnLogin.setText("Login");
+        jBtnLogin.setToolTipText("Login");
         jBtnLogin.setNextFocusableComponent(jBtnCancel);
         jBtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -68,6 +69,7 @@ public class UserLogin extends javax.swing.JFrame {
         jBtnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnCancel.setForeground(new java.awt.Color(255, 255, 255));
         jBtnCancel.setText("Cancel");
+        jBtnCancel.setToolTipText("Cancel Login");
         jBtnCancel.setNextFocusableComponent(jTxtUserName);
         jBtnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -83,10 +85,12 @@ public class UserLogin extends javax.swing.JFrame {
             }
         });
 
+        jTxtUserName.setToolTipText("Name of the user");
         jTxtUserName.setNextFocusableComponent(jPwd);
 
         jLabelPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/LoginPic.png"))); // NOI18N
 
+        jPwd.setToolTipText("Password of the user");
         jPwd.setNextFocusableComponent(jBtnLogin);
 
         javax.swing.GroupLayout jLoginPanelLayout = new javax.swing.GroupLayout(jLoginPanel);

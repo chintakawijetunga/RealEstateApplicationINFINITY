@@ -132,6 +132,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="toolTipText" type="java.lang.String" value="Login"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jBtnCancel"/>
             </Property>
@@ -151,6 +152,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cancel Login"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTxtUserName"/>
             </Property>
@@ -163,6 +165,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTxtUserName">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Name of the user"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jPwd"/>
             </Property>
@@ -177,6 +180,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="jPwd">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Password of the user"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jBtnLogin"/>
             </Property>

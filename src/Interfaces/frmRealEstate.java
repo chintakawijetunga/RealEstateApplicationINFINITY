@@ -93,6 +93,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelLotNo.setText("Lot Number");
 
+        jTxtLotNo.setToolTipText("The lot number of the Real Estate.");
         jTxtLotNo.setEnabled(false);
         jTxtLotNo.setNextFocusableComponent(jTxtFirstName);
         jTxtLotNo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -103,6 +104,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelPrice.setText("Price");
 
+        jTxtPrice.setToolTipText("The price of the real estate.");
         jTxtPrice.setNextFocusableComponent(jTxtSqFeet);
         jTxtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -112,6 +114,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelFirstName.setText("First Name");
 
+        jTxtFirstName.setToolTipText("The first name of the real estate owner.");
         jTxtFirstName.setNextFocusableComponent(jTxtLastName);
         jTxtFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -121,6 +124,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelSqFeet.setText("Square Feet");
 
+        jTxtSqFeet.setToolTipText("The square feet of the real estate.");
         jTxtSqFeet.setNextFocusableComponent(jTxtNoOfBedrooms);
         jTxtSqFeet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -130,6 +134,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelLastName.setText("Last Name");
 
+        jTxtLastName.setToolTipText("The last name of the real estate owner.");
         jTxtLastName.setNextFocusableComponent(jTxtPrice);
         jTxtLastName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -139,6 +144,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelNoOfBedrooms.setText("No of Bedrooms");
 
+        jTxtNoOfBedrooms.setToolTipText("The no of bedrooms of the real estate.");
         jTxtNoOfBedrooms.setNextFocusableComponent(jBtnSave);
         jTxtNoOfBedrooms.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -163,9 +169,11 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 "Lot Number", "First Name", "Last Name", "Price", "Square Feet", "No of Bedrooms"
             }
         ));
+        jTableEstateInfo.setToolTipText("Existing real estate details.");
         jTableEstateInfo.setGridColor(new java.awt.Color(0, 204, 204));
         jTableEstateInfo.setNextFocusableComponent(jBtnPrev);
         jTableEstateInfo.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        jTableEstateInfo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableEstateInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableEstateInfoMouseClicked(evt);
@@ -176,6 +184,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnClose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnClose.setForeground(new java.awt.Color(255, 255, 255));
         jBtnClose.setText("Close");
+        jBtnClose.setToolTipText("Close");
         jBtnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBtnCloseMouseEntered(evt);
@@ -193,6 +202,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnAdd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnAdd.setForeground(new java.awt.Color(255, 255, 255));
         jBtnAdd.setText("Add");
+        jBtnAdd.setToolTipText("Add Record");
         jBtnAdd.setNextFocusableComponent(jTxtLotNo);
         jBtnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -211,6 +221,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnSave.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnSave.setForeground(new java.awt.Color(255, 255, 255));
         jBtnSave.setText("Save");
+        jBtnSave.setToolTipText("Save Record");
         jBtnSave.setNextFocusableComponent(jBtnClear);
         jBtnSave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -229,6 +240,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnReset.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnReset.setForeground(new java.awt.Color(255, 255, 255));
         jBtnReset.setText("Reset");
+        jBtnReset.setToolTipText("Reset display");
         jBtnReset.setNextFocusableComponent(jBtnSearch);
         jBtnReset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -247,6 +259,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnClear.setForeground(new java.awt.Color(255, 255, 255));
         jBtnClear.setText("Clear");
+        jBtnClear.setToolTipText("Clear Fields");
         jBtnClear.setNextFocusableComponent(jBtnReset);
         jBtnClear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -265,6 +278,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnSearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnSearch.setForeground(new java.awt.Color(255, 255, 255));
         jBtnSearch.setText("Search");
+        jBtnSearch.setToolTipText("Search Record");
         jBtnSearch.setNextFocusableComponent(jBtnDelete);
         jBtnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -283,6 +297,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnDelete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnDelete.setForeground(new java.awt.Color(255, 255, 255));
         jBtnDelete.setText("Delete");
+        jBtnDelete.setToolTipText("Delete Record");
         jBtnDelete.setNextFocusableComponent(jTableEstateInfo);
         jBtnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -301,6 +316,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnPrev.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnPrev.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPrev.setText("Previous");
+        jBtnPrev.setToolTipText("Previous Record");
         jBtnPrev.setNextFocusableComponent(jBtnNext);
         jBtnPrev.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -319,6 +335,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnNext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnNext.setForeground(new java.awt.Color(255, 255, 255));
         jBtnNext.setText("Next");
+        jBtnNext.setToolTipText("Next Record");
         jBtnNext.setNextFocusableComponent(jBtnClose);
         jBtnNext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -337,6 +354,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
         jBtnPopulate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnPopulate.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPopulate.setText("Populate");
+        jBtnPopulate.setToolTipText("Populate the overview");
         jBtnPopulate.setNextFocusableComponent(jBtnAdd);
         jBtnPopulate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -701,6 +719,12 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
                 house = (ListHouse) list.getNextItem(false);
                 showHouse(house);
                 PopulateTheTable();
+                
+                 DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
+                 if (model.getRowCount() == 0) {
+                     clearTextFields(this.getContentPane());  
+                 }         
+                
              } else {
                 JOptionPane.showMessageDialog(rootPane, "Lot Number you specified is unavailable");
              }
@@ -805,50 +829,50 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableEstateInfoMouseClicked
 
     private void jTxtLotNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtLotNoKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtLotNoKeyTyped
 
     private void jTxtFirstNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtFirstNameKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtFirstNameKeyTyped
 
     private void jTxtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtLastNameKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtLastNameKeyTyped
 
     private void jTxtPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtPriceKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtPriceKeyTyped
 
     private void jTxtSqFeetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtSqFeetKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtSqFeetKeyTyped
 
     private void jTxtNoOfBedroomsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNoOfBedroomsKeyTyped
-        // TODO add your handling code here:
-        if(!this.bEdited){
-        this.bEdited=true;
-        buttonEnableDisable("Update", bEdited);
+        
+        if (!this.bEdited) {
+            this.bEdited = true;
+            buttonEnableDisable("Update", bEdited);
         }
     }//GEN-LAST:event_jTxtNoOfBedroomsKeyTyped
 
