@@ -93,6 +93,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
         jLabelLotNo.setText("Lot Number");
 
+        jTxtLotNo.setEnabled(false);
         jTxtLotNo.setNextFocusableComponent(jTxtFirstName);
         jTxtLotNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -490,6 +491,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
        buttonEnableDisable("FormOpen", false);
        DefaultTableModel model = (DefaultTableModel) jTableEstateInfo.getModel();
        model.setRowCount(0);
+       bEdited=false;
        this.dispose();
        frmRealEstate.jMainDesktopPane.remove(this);
        
@@ -507,6 +509,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
        fieldEnableDisable(true);
+       jTxtLotNo.setEnabled(true);
        enableAllButtons();
        buttonEnableDisable("Add", false);
        clearTextFields(this.getContentPane());       
@@ -576,6 +579,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
               }
   
               fieldEnableDisable(true);
+              jTxtLotNo.setEnabled(false);
               enableAllButtons();
               buttonEnableDisable("Save", false);
            }
@@ -1056,6 +1060,8 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
           jTxtSqFeet.setText(Integer.toString((int) squareFeet));
           jTxtNoOfBedrooms.setText(Integer.toString((int) bedRooms));
           
+          //jTxtLotNo.setEnabled(false);
+          
        } catch (Exception e) {
           JOptionPane.showMessageDialog(rootPane, "Unrecognized Error occured.");
        }
@@ -1075,7 +1081,7 @@ public class frmRealEstate extends javax.swing.JInternalFrame {
    }   
 
    private void fieldEnableDisable(boolean value) {
-      jTxtLotNo.setEnabled(value);
+      //jTxtLotNo.setEnabled(value);
       jTxtFirstName.setEnabled(value);
       jTxtLastName.setEnabled(value);
       jTxtPrice.setEnabled(value);

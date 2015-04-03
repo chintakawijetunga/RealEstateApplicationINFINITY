@@ -50,6 +50,7 @@ public class UserLogin extends javax.swing.JFrame {
         jBtnLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnLogin.setForeground(new java.awt.Color(255, 255, 255));
         jBtnLogin.setText("Login");
+        jBtnLogin.setNextFocusableComponent(jBtnCancel);
         jBtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBtnLoginMouseEntered(evt);
@@ -67,6 +68,7 @@ public class UserLogin extends javax.swing.JFrame {
         jBtnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtnCancel.setForeground(new java.awt.Color(255, 255, 255));
         jBtnCancel.setText("Cancel");
+        jBtnCancel.setNextFocusableComponent(jTxtUserName);
         jBtnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBtnCancelMouseEntered(evt);
@@ -81,7 +83,11 @@ public class UserLogin extends javax.swing.JFrame {
             }
         });
 
+        jTxtUserName.setNextFocusableComponent(jPwd);
+
         jLabelPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/LoginPic.png"))); // NOI18N
+
+        jPwd.setNextFocusableComponent(jBtnLogin);
 
         javax.swing.GroupLayout jLoginPanelLayout = new javax.swing.GroupLayout(jLoginPanel);
         jLoginPanel.setLayout(jLoginPanelLayout);
@@ -197,7 +203,7 @@ public class UserLogin extends javax.swing.JFrame {
             if (jTxtUserName.getText().equals("admin") && pwd.equals("admin")) {
 
                 new frmMainMenu().setVisible(true);
-                this.setVisible(false);
+                this.dispose();
             } else {
 
                 JOptionPane.showMessageDialog(rootPane, "Invalid login credentials.", "Error", JOptionPane.ERROR_MESSAGE);

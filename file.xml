@@ -35,4 +35,11 @@
 <squareFeet>25</squareFeet>
 <bedRooms>2</bedRooms>
 </House>
+<House lotNumber="7000">
+<firstName>Piyumi</firstName>
+<lastName>Danthanarayana</lastName>
+<price>50000</price>
+<squareFeet>5000</squareFeet>
+<bedRooms>7</bedRooms>
+</House>
 </Houses>
